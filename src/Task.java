@@ -1,10 +1,12 @@
 import java.util.Objects;
 
 public class Task {
-    private String name = "";
-    private String details = "";
+    private String name;
+    private String details;
     private int taskId = 0;
     private Status status;
+
+
 
     public Task(String name, String details){
         this.name = name;

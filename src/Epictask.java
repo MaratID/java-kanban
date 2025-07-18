@@ -2,7 +2,7 @@ import java.util.ArrayList;
 import java.util.Objects;
 
 public class Epictask extends Task{
-    ArrayList<Integer> subtasksIds = new ArrayList<>();
+    private ArrayList<Integer> subtasksIds = new ArrayList<>();
 
     public Epictask(String name, String details) {
         super(name, details);
@@ -28,6 +28,8 @@ public class Epictask extends Task{
     public void removeSubtask(int id){
         subtasksIds.remove(Integer.valueOf(id));
     }
+
+
 
     @Override
     public String toString() {
