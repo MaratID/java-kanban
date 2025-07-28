@@ -1,20 +1,30 @@
+package Manager;
+import tasks.*;
+
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 
 
-public class TaskManager {
+public class InMemoryTaskManager implements TaskManager {
     //список Задач
     private final HashMap<Integer, Task> tasks = new HashMap<>();
     //списки Эпиков
     private final HashMap<Integer, Epictask> epicTasks = new HashMap<>();
     //список подзадач
     private final HashMap<Integer, Subtask> subtasks = new HashMap<>();
-    private int generatorId = 0;
+
+
+    HistoryManager historyManager = Managers.getDefaultHistory();
+
+
+    public int generatorId = 0;
 
     private int generateID(){
-        return generatorId++;
+        return ++generatorId;
     }
     //получить список Задач
+    @Override
     public ArrayList<Task> getTaskList(){
         ArrayList<Task> list = new ArrayList<>();
         for (Integer key : tasks.keySet()) {
@@ -23,6 +33,7 @@ public class TaskManager {
         return list;
     }
     //получить список Эпиков
+    @Override
     public ArrayList<Epictask> getEpicTaskList(){
         ArrayList<Epictask> list = new ArrayList<>();
         for (Integer key : epicTasks.keySet()) {
@@ -31,6 +42,7 @@ public class TaskManager {
         return list;
     }
     //получить список подзадач
+    @Override
     public ArrayList<Subtask> getSubTaskList(){
         ArrayList<Subtask> list = new ArrayList<>();
         for (Integer key : subtasks.keySet()) {
@@ -38,16 +50,19 @@ public class TaskManager {
         }
         return list;
     }
-
+    //очищение списков задач
+    @Override
     public void clearTasks(){
         tasks.clear();
     }
 
+    @Override
     public void clearEpics(){
         epicTasks.clear();
         subtasks.clear();
     }
 
+    @Override
     public void clearSubtasks(){
         for (Integer id : subtasks.keySet()){
             Subtask subtask = subtasks.get(id);
@@ -59,37 +74,51 @@ public class TaskManager {
         }
     }
 
-    //получение по Id
+    //Получение по id. Методы для просмотра в getHistory()
+
+    @Override
     public Task getTaskById(int id){
-       return tasks.get(id);
+        historyManager.updateHistory(tasks.get(id));
+        return tasks.get(id);
     }
 
+    @Override
     public Epictask getEpictaskById(int id){
+        historyManager.updateHistory(epicTasks.get(id));
         return epicTasks.get(id);
     }
 
+    @Override
     public Subtask getSubtaskById(int id){
+        historyManager.updateHistory(subtasks.get(id));
         return subtasks.get(id);
     }
 
     //создание Задач
+    @Override
     public void createTask(Task task) {
-        task.setTaskId(generateID());
+        int a = generateID();
+        task.setTaskId(a);
         tasks.put(task.getTaskId(), task);
     }
 
+    @Override
     public void createEpicTask(Epictask epictask){
         //код для класса EpicTask
         epictask.setTaskId(generateID());
         epicTasks.put(epictask.getTaskId(), epictask);
     }
 
+    @Override
     public void createSubtask(Subtask subtask){
         //код для класса SubTask
         final int epicId = subtask.getEpicId();
         Epictask epic = epicTasks.get(epicId);
         if (epic == null) {
-            return;
+            throw new IllegalArgumentException("Эпик с таким ID " + epicId + " не существует");
+        }
+        if (subtask.getTaskId() == subtask.getEpicId()) {
+            throw new IllegalArgumentException("Субтаск не может быть для себя эпиком");
         }
         subtask.setTaskId(generateID());
         subtasks.put(subtask.getTaskId(), subtask);
@@ -98,6 +127,7 @@ public class TaskManager {
     }
 
 
+    @Override
     public void renewTask(Task task){
         if (tasks.get(task.getTaskId()) == null) {
             return;
@@ -105,6 +135,7 @@ public class TaskManager {
         tasks.replace(task.getTaskId(), task);
     }
 
+    @Override
     public void renewEpictask(Epictask epictask){
         if(epicTasks.get(epictask.getTaskId())==null) {
             return;
@@ -113,6 +144,7 @@ public class TaskManager {
         updateEpicStatus(epictask.getTaskId());
     }
 
+    @Override
     public void renewSubtask(Subtask subtask){
         if (subtasks.get(subtask.getTaskId()) == null) {
             return;
@@ -122,10 +154,12 @@ public class TaskManager {
         updateEpicStatus(subtask.getEpicId());
     }
 
+    @Override
     public void deleteTaskById(int id){
         tasks.remove(id);
     }
 
+    @Override
     public void deleteEpictaskById(int id){
        for (Integer sub : subtasks.keySet()) {
            Subtask subtask = subtasks.get(sub);
@@ -136,6 +170,7 @@ public class TaskManager {
         epicTasks.remove(id);
     }
 
+    @Override
     public void deleteSubtaskById(int id){
         Subtask subtask = subtasks.remove(id);
         if (subtask == null) {
@@ -147,19 +182,18 @@ public class TaskManager {
     }
 
     //дополнительные методы
-    public ArrayList<Subtask> getSubtasksByEpicTask(Epictask epictask){
-        ArrayList<Subtask> subtaskList = new ArrayList<>();
-        int id = epictask.getTaskId();
-        for (Integer sub : subtasks.keySet()) {
-            Subtask subtask = subtasks.get(sub);
-            if (subtask.getEpicId() == id) {
-                subtaskList.add(subtask);
-            }
-        }
-        return subtaskList;
+
+
+    public ArrayList<Task> getHistory() {
+        return historyManager.getHistory();
     }
 
-    private void updateEpicStatus(int epicId){
+
+
+
+    //дополнительные методы из 4 спринта
+
+    public void updateEpicStatus(int epicId) {
         Epictask epictask = epicTasks.get(epicId);
         if (epictask.getSubtasksIds().isEmpty()) {
             epictask.setStatus(Status.NEW);
@@ -183,4 +217,18 @@ public class TaskManager {
             }
         }
     }
+
+
+    public ArrayList<Subtask> getSubtasksByEpicTask(Task epictask){
+        ArrayList<Subtask> subtaskList = new ArrayList<>();
+        int id = epictask.getTaskId();
+        for (Integer sub : subtasks.keySet()) {
+            Subtask subtask = subtasks.get(sub);
+            if (subtask.getEpicId() == id) {
+                subtaskList.add(subtask);
+            }
+        }
+        return subtaskList;
+    }
+
 }
