@@ -186,7 +186,17 @@ public class InMemoryTaskManager implements TaskManager {
         return historyManager.getHistory();
     }
 
-
+    public ArrayList<Subtask> getSubtasksByEpicTask(Task epictask){
+        ArrayList<Subtask> subtaskList = new ArrayList<>();
+        int id = epictask.getTaskId();
+        for (Integer sub : subtasks.keySet()) {
+            Subtask subtask = subtasks.get(sub);
+            if (subtask.getEpicId() == id) {
+                subtaskList.add(subtask);
+            }
+        }
+        return subtaskList;
+    }
 
 
     //дополнительные методы из 4 спринта
@@ -214,19 +224,6 @@ public class InMemoryTaskManager implements TaskManager {
                 epictask.setStatus(Status.IN_POGRESS);
             }
         }
-    }
-
-
-    public ArrayList<Subtask> getSubtasksByEpicTask(Task epictask){
-        ArrayList<Subtask> subtaskList = new ArrayList<>();
-        int id = epictask.getTaskId();
-        for (Integer sub : subtasks.keySet()) {
-            Subtask subtask = subtasks.get(sub);
-            if (subtask.getEpicId() == id) {
-                subtaskList.add(subtask);
-            }
-        }
-        return subtaskList;
     }
 
     private int generateID(){
