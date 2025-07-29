@@ -9,6 +9,4 @@ public interface HistoryManager {
 
     ArrayList<Task> getHistory();
 
-    public void updateHistory(Task task);
-
 }

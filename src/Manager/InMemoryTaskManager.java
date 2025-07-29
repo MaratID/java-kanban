@@ -15,14 +15,12 @@ public class InMemoryTaskManager implements TaskManager {
     private final HashMap<Integer, Subtask> subtasks = new HashMap<>();
 
 
-    HistoryManager historyManager = Managers.getDefaultHistory();
+    private final HistoryManager historyManager = Managers.getDefaultHistory();
 
 
-    public int generatorId = 0;
+    private int generatorId = 0;
 
-    private int generateID(){
-        return ++generatorId;
-    }
+
     //получить список Задач
     @Override
     public ArrayList<Task> getTaskList(){
@@ -78,19 +76,19 @@ public class InMemoryTaskManager implements TaskManager {
 
     @Override
     public Task getTaskById(int id){
-        historyManager.updateHistory(tasks.get(id));
+        historyManager.add(tasks.get(id));
         return tasks.get(id);
     }
 
     @Override
     public Epictask getEpictaskById(int id){
-        historyManager.updateHistory(epicTasks.get(id));
+        historyManager.add(epicTasks.get(id));
         return epicTasks.get(id);
     }
 
     @Override
     public Subtask getSubtaskById(int id){
-        historyManager.updateHistory(subtasks.get(id));
+        historyManager.add(subtasks.get(id));
         return subtasks.get(id);
     }
 
@@ -183,7 +181,7 @@ public class InMemoryTaskManager implements TaskManager {
 
     //дополнительные методы
 
-
+    @Override
     public ArrayList<Task> getHistory() {
         return historyManager.getHistory();
     }
@@ -193,7 +191,7 @@ public class InMemoryTaskManager implements TaskManager {
 
     //дополнительные методы из 4 спринта
 
-    public void updateEpicStatus(int epicId) {
+    private void updateEpicStatus(int epicId) {
         Epictask epictask = epicTasks.get(epicId);
         if (epictask.getSubtasksIds().isEmpty()) {
             epictask.setStatus(Status.NEW);
@@ -231,4 +229,7 @@ public class InMemoryTaskManager implements TaskManager {
         return subtaskList;
     }
 
+    private int generateID(){
+        return ++generatorId;
+    }
 }
