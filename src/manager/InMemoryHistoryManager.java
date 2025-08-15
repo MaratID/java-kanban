@@ -9,6 +9,8 @@ public class InMemoryHistoryManager implements HistoryManager {
     private Node first;
     private Node last;
     
+    //Методы
+    
     @Override
     public void add(Task task) {
         if (task == null) {
