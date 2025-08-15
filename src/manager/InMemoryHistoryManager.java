@@ -9,7 +9,6 @@ public class InMemoryHistoryManager implements HistoryManager {
     private Node first;
     private Node last;
 
-
     @Override
     public ArrayList<Task> getHistory() {
         return getTasks();
