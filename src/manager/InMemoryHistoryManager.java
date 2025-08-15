@@ -6,7 +6,7 @@ public class InMemoryHistoryManager implements HistoryManager {
     private final Map<Integer, Node> nodesMap = new HashMap<>();
     private Node first;
     private Node last;
-    
+
     @Override
     public void add(Task task) {
         if (task == null) {

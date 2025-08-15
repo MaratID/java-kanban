@@ -9,7 +9,7 @@ import java.util.ArrayList;
 public class InMemoryHistoryManagerTest {
     InMemoryTaskManager taskmanager = new InMemoryTaskManager();
     InMemoryHistoryManager historyManager = new InMemoryHistoryManager();
-    
+
     @Test
     void shouldReturnEqualListsAfterTaskStatusChanging() {
         ArrayList<Task> chekList = new ArrayList<>();

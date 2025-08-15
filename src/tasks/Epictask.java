@@ -7,28 +7,28 @@ public class Epictask extends Task{
         super(name, details);
         this.subtasksIds = new ArrayList<>();
     }
-    
+
     public Epictask(int id, String name, String details) {
         super(id, name, details);
         this.subtasksIds = new ArrayList<>();
     }
-    
+
     public ArrayList<Integer> getSubtasksIds() {
         return subtasksIds;
     }
-    
+
     public void addSubtaskIDs(int id){
         subtasksIds.add(id);
     }
-    
+
     public void clearSubtaskIds(){
         subtasksIds.clear();
     }
-    
+
     public void removeSubtask(int id){
         subtasksIds.remove(Integer.valueOf(id));
     }
-    
+
     @Override
     public String toString() {
         return "Epictask{" +
