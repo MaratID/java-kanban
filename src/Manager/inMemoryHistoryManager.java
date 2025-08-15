@@ -4,7 +4,7 @@ import tasks.Task;
 
 import java.util.*;
 
-public class InMemoryHistoryManager implements HistoryManager{
+public class inMemoryHistoryManager implements HistoryManager{
     /*добавляется на спринте 6
     Список истории вызовов
     */
@@ -17,6 +17,7 @@ public class InMemoryHistoryManager implements HistoryManager{
     public ArrayList<Task> getHistory() {
         return getTasks();
     }
+    
     @Override
     public void add(Task task) {
         if (task == null) {
@@ -33,7 +34,7 @@ public class InMemoryHistoryManager implements HistoryManager{
         removeNode(id);
     }
 
-    public void linkedLast(Task task){
+    public void linkedLast(Task task) {
         //создаем узел
         Node node = new Node(task, last, null);
 
@@ -48,7 +49,7 @@ public class InMemoryHistoryManager implements HistoryManager{
     }
 
 
-    public ArrayList<Task> getTasks(){
+    public ArrayList<Task> getTasks() {
         ArrayList<Task> tasks = new ArrayList<>();
         Node fNode = first; // копируем первый узел во временный объект Node
         while(fNode != null){

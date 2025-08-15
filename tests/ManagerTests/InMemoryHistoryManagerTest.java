@@ -6,9 +6,9 @@ import org.junit.jupiter.api.Assertions;
 
 import java.util.ArrayList;
 
-public class InMemoryHistoryManagerTest {
-    InMemoryTaskManager taskmanager = new InMemoryTaskManager();
-    InMemoryHistoryManager historyManager = new InMemoryHistoryManager();
+public class inMemoryHistoryManagerTest {
+    inMemoryTaskManager taskmanager = new inMemoryTaskManager();
+    inMemoryHistoryManager historyManager = new inMemoryHistoryManager();
     @Test
     void shouldReturnEqualListsAfterTaskStatusChanging(){
         ArrayList<Task> chekList = new ArrayList<>();
@@ -29,7 +29,7 @@ public class InMemoryHistoryManagerTest {
     void shouldReturnEmptyListAfterTaskRemoveFromHistory(){
         ArrayList<Task> historyOfTasks = new ArrayList<>();
         Task task = new Task(1, "testTask Name", "task Details", Status.NEW);
-        InMemoryTaskManager manager = new InMemoryTaskManager();
+        inMemoryTaskManager manager = new inMemoryTaskManager();
         manager.createTask(task);
         manager.getTaskById(1);
         historyOfTasks = manager.getHistory();
