@@ -9,7 +9,7 @@ import java.util.ArrayList;
 public class Main {
 
     public static void main(String[] args) {
-        //Опциональный пользовательский сценарий
+        //Опциональный пользовательский сценарий.
         InMemoryTaskManager manager = new InMemoryTaskManager();
 
         manager.createTask(new Task("Переехать на новую квартиру", "Детали главной задачи", Status.NEW));
