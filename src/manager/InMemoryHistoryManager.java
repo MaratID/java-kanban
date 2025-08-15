@@ -27,7 +27,7 @@ public class InMemoryHistoryManager implements HistoryManager {
     public void remove(int id) {
         removeNode(id);
     }
-    
+
     public void linkedLast(Task task) {
         //создаем узел
         Node node = new Node(task, last, null);
