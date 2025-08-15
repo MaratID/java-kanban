@@ -1,15 +1,11 @@
 package manager;
-
 import tasks.Task;
-
 import java.util.*;
 
 public class InMemoryHistoryManager implements HistoryManager {
     private final Map<Integer, Node> nodesMap = new HashMap<>();
     private Node first;
     private Node last;
-    
-    //Методы
     
     @Override
     public void add(Task task) {
