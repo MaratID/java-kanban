@@ -1,4 +1,4 @@
-package Main;
+package main;
 import manager.*;
 import tasks.*;
 import java.util.ArrayList;
@@ -14,14 +14,14 @@ public class Main {
         manager.createSubtask(new Subtask("Вынести вещи к машине", "Спустить вещи на лифте", Status.NEW, 3));
         manager.createSubtask(new Subtask("Погрузить машину", "Детали подзадачит по погрузке машины", Status.NEW, 3));
         manager.createEpicTask(new Epictask("Убраться в старой квартире", "Детали эпика по уборке старой квартиры"));
-        ArrayList<Task> tasksCopies= new ArrayList<>();
-        for (Task t : manager.getTaskList()){
+        ArrayList<Task> tasksCopies = new ArrayList<>();
+        for (Task t : manager.getTaskList()) {
             tasksCopies.add(new Task(t.getTaskId(), t.getName(), t.getDetails(), t.getStatus()));
         }
-        for (Epictask e : manager.getEpicTaskList()){
+        for (Epictask e : manager.getEpicTaskList()) {
             tasksCopies.add(new Epictask(e.getTaskId(), e.getName(), e.getDetails()));
         }
-        for (Subtask s : manager.getSubTaskList()){
+        for (Subtask s : manager.getSubTaskList()) {
             tasksCopies.add(new Epictask(s.getTaskId(), s.getName(), s.getDetails()));
         }
         manager.getTaskById(2);
