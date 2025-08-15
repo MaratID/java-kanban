@@ -3,6 +3,7 @@ import tasks.*;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Iterator;
 import java.util.List;
 
 
@@ -51,17 +52,29 @@ public class InMemoryTaskManager implements TaskManager {
     //очищение списков задач
     @Override
     public void clearTasks(){
+        for(Integer id : tasks.keySet()){
+            historyManager.remove(id);
+        }
         tasks.clear();
     }
 
     @Override
     public void clearEpics(){
+        for(Integer id : epicTasks.keySet()){
+            for(Integer Sid : epicTasks.get(id).getSubtasksIds()){
+                historyManager.remove(Sid);
+            }
+            historyManager.remove(id);
+        }
         epicTasks.clear();
         subtasks.clear();
     }
 
     @Override
     public void clearSubtasks(){
+        for(Integer id : subtasks.keySet()){
+            historyManager.remove(id);
+        }
         for (Integer id : subtasks.keySet()){
             Subtask subtask = subtasks.get(id);
             int epicID = subtask.getEpicId();
@@ -154,22 +167,30 @@ public class InMemoryTaskManager implements TaskManager {
 
     @Override
     public void deleteTaskById(int id){
+        historyManager.remove(id);
         tasks.remove(id);
     }
 
     @Override
     public void deleteEpictaskById(int id){
-       for (Integer sub : subtasks.keySet()) {
-           Subtask subtask = subtasks.get(sub);
-           if (subtask.getEpicId() == id) {
-               subtasks.remove(sub);
-           }
-       }
+        for(Integer Sid : epicTasks.get(id).getSubtasksIds()){
+            historyManager.remove(Sid);
+        }
+        historyManager.remove(id);
+        Iterator<Integer> iterator = subtasks.keySet().iterator();
+        while(iterator.hasNext()){
+            Integer i = iterator.next();
+            Subtask subtask = subtasks.get(i);
+            if(subtask.getEpicId() == id){
+                iterator.remove();
+            }
+        }
         epicTasks.remove(id);
     }
 
     @Override
     public void deleteSubtaskById(int id){
+        historyManager.remove(id);
         Subtask subtask = subtasks.remove(id);
         if (subtask == null) {
             return;

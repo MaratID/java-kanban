@@ -1,4 +1,4 @@
-package tests.ManagerTests;
+package ManagerTests;
 
 import tasks.*;
 import Manager.*;
@@ -92,5 +92,22 @@ class InMemoryTaskManagerTest {
         taskManager.createTask(task);
         ArrayList<Task> list = taskManager.getTaskList();
         Assertions.assertEquals(task.toString(), list.getFirst().toString(), "Поля Задачи не равны");
+    }
+
+    @Test
+    void shouldNotStayUnactualSubtasksinEpictasks(){
+        InMemoryTaskManager manager = new InMemoryTaskManager();
+        manager.createEpicTask(new Epictask("Epicname1", "Epicname1 details"));
+        manager.createSubtask(new Subtask(2,"Subtask1Name", "Subtask1 Details", Status.NEW,
+            manager.getEpicTaskList().getFirst().getTaskId()));
+
+        //заменяем статус Субтаска внутри эпика на IN_POGRESS
+        Subtask subtask = manager.getSubtaskById(2);
+        subtask.setStatus(Status.IN_POGRESS);
+        manager.renewSubtask(subtask);
+
+        Assertions.assertEquals(manager.getEpicTaskList().getFirst().getStatus(), Status.IN_POGRESS,
+                "Статусы не совпали");
+
     }
 }

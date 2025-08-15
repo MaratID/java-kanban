@@ -12,11 +12,14 @@ public class Task {
     public Task(String name, String details){
         this.name = name;
         this.details = details;
+
+
     }
     public Task(int id, String name, String details){
         this.name = name;
         this.details = details;
         this.taskId = id;
+
     }
 
 
@@ -25,12 +28,16 @@ public class Task {
         this.details = details;
         this.taskId = id;
         this.status = taskStatus;
+
     }
     public Task(String name, String details, Status taskStatus) {
         this.name = name;
         this.details = details;
         this.status = taskStatus;
+
     }
+
+
 
     public int getTaskId() {
         return taskId;
