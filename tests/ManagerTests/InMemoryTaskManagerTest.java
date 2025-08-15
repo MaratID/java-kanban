@@ -1,12 +1,10 @@
 package ManagerTests;
-
 import tasks.*;
 import manager.*;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.Assertions;
 
 import java.util.ArrayList;
-
 
 class InMemoryTaskManagerTest {
 

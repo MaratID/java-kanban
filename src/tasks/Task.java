@@ -1,5 +1,6 @@
 package tasks;
 import java.util.Objects;
+
 public class Task {
     private String name;
     private String details;
