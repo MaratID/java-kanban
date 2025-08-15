@@ -13,7 +13,6 @@ public class InMemoryHistoryManager implements HistoryManager {
     public ArrayList<Task> getHistory() {
         return getTasks();
     }
-    
     @Override
     public void add(Task task) {
         if (task == null) {
