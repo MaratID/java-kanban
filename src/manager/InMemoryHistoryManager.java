@@ -8,11 +8,6 @@ public class InMemoryHistoryManager implements HistoryManager {
     private final Map<Integer, Node> nodesMap = new HashMap<>();
     private Node first;
     private Node last;
-
-    @Override
-    public ArrayList<Task> getHistory() {
-        return getTasks();
-    }
     
     @Override
     public void add(Task task) {
@@ -23,6 +18,11 @@ public class InMemoryHistoryManager implements HistoryManager {
         removeNode(id);
         linkedLast(task);
         nodesMap.put(id, last);
+    }
+
+    @Override
+    public ArrayList<Task> getHistory() {
+        return getTasks();
     }
 
     @Override
