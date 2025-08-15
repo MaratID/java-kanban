@@ -5,8 +5,6 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Iterator;
 
-
-
 public class InMemoryTaskManager implements TaskManager {
     //список Задач
     private final HashMap<Integer, Task> tasks = new HashMap<>();
@@ -15,12 +13,9 @@ public class InMemoryTaskManager implements TaskManager {
     //список подзадач
     private final HashMap<Integer, Subtask> subtasks = new HashMap<>();
 
-
     private final HistoryManager historyManager = Managers.getDefaultHistory();
 
-
     private int generatorId = 0;
-
 
     //получить список Задач
     @Override
@@ -141,7 +136,6 @@ public class InMemoryTaskManager implements TaskManager {
         updateEpicStatus(epicId);
     }
 
-
     @Override
     public void renewTask(Task task) {
         if (tasks.get(task.getTaskId()) == null) {
@@ -222,7 +216,6 @@ public class InMemoryTaskManager implements TaskManager {
         }
         return subtaskList;
     }
-
 
     //дополнительные методы из 4 спринта
 

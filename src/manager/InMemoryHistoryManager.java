@@ -4,7 +4,7 @@ import tasks.Task;
 
 import java.util.*;
 
-public class InMemoryHistoryManager implements HistoryManager{
+public class InMemoryHistoryManager implements HistoryManager {
     /*добавляется на спринте 6
     Список истории вызовов
     */
@@ -30,7 +30,7 @@ public class InMemoryHistoryManager implements HistoryManager{
     }
 
     @Override
-    public void remove(int id){
+    public void remove(int id) {
         removeNode(id);
     }
 
@@ -39,7 +39,7 @@ public class InMemoryHistoryManager implements HistoryManager{
         Node node = new Node(task, last, null);
 
         // если первый узел в списке ничего не содержит
-        if(first == null) {
+        if (first == null) {
             first = node; //кладем в первый узел наш созданый узел
         } else {
             last.next = node; //приравниваем послений к созданному, т.к. он сейчас единственный в списке
@@ -52,7 +52,7 @@ public class InMemoryHistoryManager implements HistoryManager{
     public ArrayList<Task> getTasks() {
         ArrayList<Task> tasks = new ArrayList<>();
         Node fNode = first; // копируем первый узел во временный объект Node
-        while(fNode != null){
+        while(fNode != null) {
             tasks.add(fNode.task); //включаем все задачи по узлам в список задач
             fNode = fNode.next;
         }
@@ -61,9 +61,9 @@ public class InMemoryHistoryManager implements HistoryManager{
     }
 
 
-    private void removeNode(int id){
+    private void removeNode(int id) {
         final Node node = nodesMap.remove(id); //получаем объект узла по id
-        if(node == null) {
+        if (node == null) {
             return;
         }
         final Node nodenext = node.next; //делаем следующим следующий за выбранным узел
