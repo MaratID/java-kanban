@@ -52,7 +52,7 @@ public class InMemoryHistoryManager implements HistoryManager {
     public ArrayList<Task> getTasks() {
         ArrayList<Task> tasks = new ArrayList<>();
         Node fNode = first; // копируем первый узел во временный объект Node
-        while(fNode != null) {
+        while (fNode != null) {
             tasks.add(fNode.task); //включаем все задачи по узлам в список задач
             fNode = fNode.next;
         }
@@ -69,7 +69,7 @@ public class InMemoryHistoryManager implements HistoryManager {
         final Node nodenext = node.next; //делаем следующим следующий за выбранным узел
         final Node nodeprev = node.prev; //делаем предыдущим предыдущий за выбранным узел
 
-        if (nodeprev == null) {//если был исключен первый узел
+        if (nodeprev == null) { //если был исключен первый узел
             first = nodenext; //то новый первый становиться следующий за исключенным
         } else {
             nodeprev.next = nodenext; //иначе привязываем предшествующий с последующим от выбранного
