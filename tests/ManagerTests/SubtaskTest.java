@@ -5,8 +5,7 @@ import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.Assertions;
 
 class SubtaskTest {
-
-
+    
     @Test
     void shoultReturnTrueForSubtaskWithSameID() {
         Subtask subtask1 = new Subtask(2, "task1", "task1Details", Status.NEW, 2);
