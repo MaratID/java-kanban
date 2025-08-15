@@ -7,7 +7,7 @@ import java.util.Iterator;
 
 
 
-public class inMemoryTaskManager implements TaskManager {
+public class InMemoryTaskManager implements TaskManager {
     //список Задач
     private final HashMap<Integer, Task> tasks = new HashMap<>();
     //списки Эпиков
@@ -54,7 +54,7 @@ public class inMemoryTaskManager implements TaskManager {
     //очищение списков задач
 
     @Override
-    public void clearTasks(){
+    public void clearTasks() {
         for (Integer id : tasks.keySet()) {
             historyManager.remove(id);
         }
@@ -62,9 +62,9 @@ public class inMemoryTaskManager implements TaskManager {
     }
 
     @Override
-    public void clearEpics(){
+    public void clearEpics() {
         for (Integer id : epicTasks.keySet()) {
-            for(Integer sid : epicTasks.get(id).getSubtasksIds()){
+            for(Integer sid : epicTasks.get(id).getSubtasksIds()) {
                 historyManager.remove(sid);
             }
             historyManager.remove(id);
@@ -152,7 +152,7 @@ public class inMemoryTaskManager implements TaskManager {
 
     @Override
     public void renewEpictask(Epictask epictask) {
-        if(epicTasks.get(epictask.getTaskId()) == null) {
+        if (epicTasks.get(epictask.getTaskId()) == null) {
             return;
         }
         epicTasks.replace(epictask.getTaskId(), epictask);
@@ -182,10 +182,10 @@ public class inMemoryTaskManager implements TaskManager {
         }
         historyManager.remove(id);
         Iterator<Integer> iterator = subtasks.keySet().iterator();
-        while (iterator.hasNext()){
+        while (iterator.hasNext()) {
             Integer i = iterator.next();
             Subtask subtask = subtasks.get(i);
-            if(subtask.getEpicId() == id){
+            if(subtask.getEpicId() == id) {
                 iterator.remove();
             }
         }
@@ -235,7 +235,7 @@ public class inMemoryTaskManager implements TaskManager {
         int countDone = 0;
         for (Integer subtaskID : epictask.getSubtasksIds()) {
             Status subtaskStatus = subtasks.get(subtaskID).getStatus();
-            if (subtaskStatus.equals(Status.NEW)){
+            if (subtaskStatus.equals(Status.NEW)) {
                 countNew++;
             } else if (subtaskStatus.equals(Status.DONE)) {
                 countDone++;

@@ -4,7 +4,7 @@ import tasks.Task;
 
 import java.util.*;
 
-public class inMemoryHistoryManager implements HistoryManager{
+public class InMemoryHistoryManager implements HistoryManager{
     /*добавляется на спринте 6
     Список истории вызовов
     */

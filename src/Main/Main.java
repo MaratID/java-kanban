@@ -10,7 +10,7 @@ public class Main {
 
     public static void main(String[] args) {
         //Опциональный пользовательский сценарий
-        inMemoryTaskManager manager = new inMemoryTaskManager();
+        InMemoryTaskManager manager = new InMemoryTaskManager();
 
         manager.createTask(new Task("Переехать на новую квартиру", "Детали главной задачи", Status.NEW));
 

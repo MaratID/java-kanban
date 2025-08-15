@@ -8,9 +8,9 @@ import org.junit.jupiter.api.Assertions;
 import java.util.ArrayList;
 
 
-class inMemoryTaskManagerTest {
+class InMemoryTaskManagerTest {
 
-    inMemoryTaskManager taskManager = new inMemoryTaskManager();
+    InMemoryTaskManager taskManager = new InMemoryTaskManager();
 
     @Test
     void createTask() {
@@ -96,7 +96,7 @@ class inMemoryTaskManagerTest {
 
     @Test
     void shouldNotStayUnactualSubtasksinEpictasks(){
-        inMemoryTaskManager manager = new inMemoryTaskManager();
+        InMemoryTaskManager manager = new InMemoryTaskManager();
         manager.createEpicTask(new Epictask("Epicname1", "Epicname1 details"));
         manager.createSubtask(new Subtask(2,"Subtask1Name", "Subtask1 Details", Status.NEW,
             manager.getEpicTaskList().getFirst().getTaskId()));
