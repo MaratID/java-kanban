@@ -1,6 +1,6 @@
 package tasks;
 
-public class Subtask extends Task{
+public class Subtask extends Task {
     private int epicId;
 
     public Subtask(int id, String name, String details, Status taskStatus, int epicID) {
@@ -29,7 +29,7 @@ public class Subtask extends Task{
                 "name='" + super.getName() + '\'' +
                 ", details='" + super.getDetails() + '\'' +
                 ", taskId=" + super.getTaskId() + '\'' +
-                ", status=" + super.getStatus() +'\'' +
+                ", status=" + super.getStatus() + '\'' +
                 "epicId=" + epicId +
                 '}';
     }
