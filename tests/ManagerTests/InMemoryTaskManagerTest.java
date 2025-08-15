@@ -45,7 +45,7 @@ class InMemoryTaskManagerTest {
     }
 
     @Test
-    void ShouldNotDoSubtaskItsEpic(){
+    void ShouldNotDoSubtaskItsEpic() {
         Epictask epictask = new Epictask(1, "epictask", "epictaskDetails");
         taskManager.createEpicTask(epictask);
         Subtask subtask = new Subtask(1, "subtask1", "subtask1details", Status.NEW, 1);
@@ -54,7 +54,7 @@ class InMemoryTaskManagerTest {
 
 
     @Test
-    void shouldReturnEqualForDifferentTaskType(){
+    void shouldReturnEqualForDifferentTaskType() {
         Task task = new Task("Test task", "Test Task details");
         taskManager.createTask(task);
         Epictask epic = new Epictask("Test Epictask", "Test Epictask details");
@@ -68,7 +68,7 @@ class InMemoryTaskManagerTest {
     }
 
     @Test
-    void shouldReturnTwoTasksForGenerateAndGivenId(){
+    void shouldReturnTwoTasksForGenerateAndGivenId() {
         Task task1 = new Task(1,"Test task1", "Test Task details");
         Task task2 = new Task("Test task2", "Test Task details");
         Task task3 = new Task("Test task3", "Test Task details");
@@ -85,7 +85,7 @@ class InMemoryTaskManagerTest {
     }
 
     @Test
-    void shouldNotCnahgeTaskFieldsAfterTaskManager(){
+    void shouldNotCnahgeTaskFieldsAfterTaskManager() {
         Task task = new Task(1,"Test task1", "Test Task details", Status.NEW);
         taskManager.createTask(task);
         ArrayList<Task> list = taskManager.getTaskList();
@@ -93,7 +93,7 @@ class InMemoryTaskManagerTest {
     }
 
     @Test
-    void shouldNotStayUnactualSubtasksinEpictasks(){
+    void shouldNotStayUnactualSubtasksinEpictasks() {
         InMemoryTaskManager manager = new InMemoryTaskManager();
         manager.createEpicTask(new Epictask("Epicname1", "Epicname1 details"));
         manager.createSubtask(new Subtask(2,"Subtask1Name", "Subtask1 Details", Status.NEW,

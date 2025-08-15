@@ -7,12 +7,12 @@ public class Task {
     private int taskId = 0;
     private Status status;
 
-    public Task(String name, String details){
+    public Task(String name, String details) {
         this.name = name;
         this.details = details;
     }
 
-    public Task(int id, String name, String details){
+    public Task(int id, String name, String details) {
         this.name = name;
         this.details = details;
         this.taskId = id;
@@ -64,7 +64,7 @@ public class Task {
     }
 
     @Override
-    public int hashCode(){
+    public int hashCode() {
         return Objects.hash(taskId);
     }
 
