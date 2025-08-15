@@ -1,7 +1,7 @@
 package ManagerTests;
 
 import tasks.*;
-import Manager.*;
+import manager.*;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.Assertions;
 

@@ -1,6 +1,6 @@
 package Main;
 
-import Manager.*;
+import manager.*;
 import tasks.*;
 
 import java.util.ArrayList;
