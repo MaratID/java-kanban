@@ -28,7 +28,7 @@ public class InMemoryHistoryManager implements HistoryManager {
         removeNode(id);
     }
 
-    public void linkedLast(Task task) {
+    private void linkedLast(Task task) {
         //создаем узел
         Node node = new Node(task, last, null);
         // если первый узел в списке ничего не содержит
@@ -40,7 +40,7 @@ public class InMemoryHistoryManager implements HistoryManager {
         last = node; //при условии, что узлы уже имеются, то последним делаем вновь созданный узел
     }
 
-    public ArrayList<Task> getTasks() {
+    private ArrayList<Task> getTasks() {
         ArrayList<Task> tasks = new ArrayList<>();
         Node fNode = first; // копируем первый узел во временный объект Node
         while (fNode != null) {
