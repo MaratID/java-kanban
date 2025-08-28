@@ -1,14 +1,14 @@
 package tasks;
 import java.util.ArrayList;
 
-
-public class Epictask extends Task{
+public class Epictask extends Task {
     private ArrayList<Integer> subtasksIds = new ArrayList<>();
 
     public Epictask(String name, String details) {
         super(name, details);
         this.subtasksIds = new ArrayList<>();
     }
+
     public Epictask(int id, String name, String details) {
         super(id, name, details);
         this.subtasksIds = new ArrayList<>();
@@ -18,19 +18,17 @@ public class Epictask extends Task{
         return subtasksIds;
     }
 
-    public void addSubtaskIDs(int id){
+    public void addSubtaskIDs(int id) {
         subtasksIds.add(id);
     }
 
-    public void clearSubtaskIds(){
+    public void clearSubtaskIds() {
         subtasksIds.clear();
     }
 
-    public void removeSubtask(int id){
+    public void removeSubtask(int id) {
         subtasksIds.remove(Integer.valueOf(id));
     }
-
-
 
     @Override
     public String toString() {

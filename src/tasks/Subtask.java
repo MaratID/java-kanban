@@ -1,16 +1,18 @@
 package tasks;
 
-public class Subtask extends Task{
+public class Subtask extends Task {
     private int epicId;
 
     public Subtask(int id, String name, String details, Status taskStatus, int epicID) {
         super(id, name, details, taskStatus);
         this.epicId = epicID;
+
     }
 
     public Subtask(String name, String details, Status taskStatus, int epicID) {
         super(name, details, taskStatus);
         this.epicId = epicID;
+
     }
 
     public int getEpicId() {
@@ -27,7 +29,7 @@ public class Subtask extends Task{
                 "name='" + super.getName() + '\'' +
                 ", details='" + super.getDetails() + '\'' +
                 ", taskId=" + super.getTaskId() + '\'' +
-                ", status=" + super.getStatus() +'\'' +
+                ", status=" + super.getStatus() + '\'' +
                 "epicId=" + epicId +
                 '}';
     }

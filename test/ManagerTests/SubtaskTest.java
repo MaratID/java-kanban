@@ -1,11 +1,9 @@
-package tests.ManagerTests;
+package ManagerTests;
 import tasks.*;
-
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.Assertions;
 
 class SubtaskTest {
-
 
     @Test
     void shoultReturnTrueForSubtaskWithSameID() {

@@ -7,18 +7,16 @@ public class Task {
     private int taskId = 0;
     private Status status;
 
-
-
-    public Task(String name, String details){
+    public Task(String name, String details) {
         this.name = name;
         this.details = details;
     }
-    public Task(int id, String name, String details){
+
+    public Task(int id, String name, String details) {
         this.name = name;
         this.details = details;
         this.taskId = id;
     }
-
 
     public Task(int id, String name, String details, Status taskStatus) {
         this.name = name;
@@ -26,6 +24,7 @@ public class Task {
         this.taskId = id;
         this.status = taskStatus;
     }
+
     public Task(String name, String details, Status taskStatus) {
         this.name = name;
         this.details = details;
@@ -43,6 +42,7 @@ public class Task {
     public Status getStatus() {
         return status;
     }
+
     public void setStatus(Status status) {
         this.status = status;
     }
@@ -64,7 +64,7 @@ public class Task {
     }
 
     @Override
-    public int hashCode(){
+    public int hashCode() {
         return Objects.hash(taskId);
     }
 
@@ -74,7 +74,6 @@ public class Task {
         Task task = (Task) o;
         return taskId == task.taskId;
     }
-
 
     public String toString() {
         return "Task{" +

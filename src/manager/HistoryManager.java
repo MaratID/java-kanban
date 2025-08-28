@@ -1,6 +1,5 @@
-package Manager;
+package manager;
 import tasks.*;
-
 import java.util.ArrayList;
 
 public interface HistoryManager {
@@ -8,5 +7,9 @@ public interface HistoryManager {
     void add(Task task);
 
     ArrayList<Task> getHistory();
+
+    void remove(int id);
+
+
 
 }
