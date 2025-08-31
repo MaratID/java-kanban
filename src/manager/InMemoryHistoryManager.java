@@ -1,12 +1,10 @@
 package manager;
 import tasks.Task;
 import java.util.*;
-
 public class InMemoryHistoryManager implements HistoryManager {
     private final Map<Integer, Node> nodesMap = new HashMap<>();
     private Node first;
     private Node last;
-
     @Override
     public void add(Task task) {
         if (task == null) {
@@ -17,17 +15,14 @@ public class InMemoryHistoryManager implements HistoryManager {
         linkedLast(task);
         nodesMap.put(id, last);
     }
-
     @Override
     public ArrayList<Task> getHistory() {
         return getTasks();
     }
-
     @Override
     public void remove(int id) {
         removeNode(id);
     }
-
     private void linkedLast(Task task) {
         //создаем узел
         Node node = new Node(task, last, null);
@@ -39,7 +34,6 @@ public class InMemoryHistoryManager implements HistoryManager {
         }
         last = node; //при условии, что узлы уже имеются, то последним делаем вновь созданный узел
     }
-
     private ArrayList<Task> getTasks() {
         ArrayList<Task> tasks = new ArrayList<>();
         Node fNode = first; // копируем первый узел во временный объект Node
@@ -49,7 +43,6 @@ public class InMemoryHistoryManager implements HistoryManager {
         }
         return tasks;
     }
-
     private void removeNode(int id) {
         final Node node = nodesMap.remove(id); //получаем объект узла по id
         if (node == null) {
@@ -57,19 +50,15 @@ public class InMemoryHistoryManager implements HistoryManager {
         }
         final Node nodenext = node.next; //делаем следующим следующий за выбранным узел
         final Node nodeprev = node.prev; //делаем предыдущим предыдущий за выбранным узел
-
         if (nodeprev == null) { //если был исключен первый узел
             first = nodenext; //то новый первый становиться следующий за исключенным
         } else {
             nodeprev.next = nodenext; //иначе привязываем предшествующий с последующим от выбранного
         }
-
         if (nodenext == null) { //если был выбран последний узел
             last = nodeprev; //делаем последним предпоследний
         } else {
             nodenext.prev = nodeprev; //если был выбран узел в середине, то привязываем предыдущий и последующий узлы
         }
-
     }
-
 }
