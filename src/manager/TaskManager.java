@@ -1,6 +1,7 @@
 package manager;
 import tasks.*;
 import java.util.ArrayList;
+
 public interface TaskManager {
     //получить список Задач
     ArrayList<Task> getTaskList();

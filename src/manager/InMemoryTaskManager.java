@@ -3,6 +3,7 @@ import tasks.*;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Iterator;
+
 public class InMemoryTaskManager implements TaskManager {
     //список Задач
     public final HashMap<Integer, Task> tasks = new HashMap<>();
