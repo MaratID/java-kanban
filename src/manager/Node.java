@@ -1,6 +1,7 @@
 package manager;
 import tasks.Task;
 public class Node {
+
     Task task;
     Node prev;
     Node next;
