@@ -14,7 +14,7 @@ import java.util.Map;
 public class FileBackedTaskManager extends InMemoryTaskManager {
     private final File file;
 
-    public FileBackedTaskManager(File file){
+    public FileBackedTaskManager(File file) {
         this.file = file;
     }
 
@@ -35,6 +35,7 @@ public class FileBackedTaskManager extends InMemoryTaskManager {
         super.createSubtask(subtask);
         save();
     }
+
     @Override
     public Task getTaskById(int id) {
         final Task task = super.getTaskById(id);
@@ -115,19 +116,19 @@ public class FileBackedTaskManager extends InMemoryTaskManager {
             writer.write(CSVSaveManager.getheader());
             writer.newLine();
 
-            for(Map.Entry<Integer, Task> entry : tasks.entrySet()) {
+            for (Map.Entry<Integer, Task> entry : tasks.entrySet()) {
                 final Task task = entry.getValue();
                 writer.write(CSVSaveManager.toString(task));
                 writer.newLine();
             }
 
-            for(Map.Entry<Integer, Epictask> entry : epicTasks.entrySet()) {
+            for (Map.Entry<Integer, Epictask> entry : epicTasks.entrySet()) {
                 final Epictask epic = entry.getValue();
                 writer.write(CSVSaveManager.toString(epic));
                 writer.newLine();
             }
 
-            for(Map.Entry<Integer, Subtask> entry : subtasks.entrySet()) {
+            for (Map.Entry<Integer, Subtask> entry : subtasks.entrySet()) {
                 final Subtask subtask = entry.getValue();
                 writer.write(CSVSaveManager.toString(subtask));
                 writer.newLine();
@@ -153,7 +154,7 @@ public class FileBackedTaskManager extends InMemoryTaskManager {
             for (int i = 1; i < lines.length; i++) {
                 String line = lines[i];
                 if (line.isEmpty()) {
-                    history.add(CSVSaveManager.historyFromString(lines[i+1]));
+                    history.add(CSVSaveManager.historyFromString(lines[i + 1]));
                     break;
                 }
                 String[] subLines = line.split(",");
