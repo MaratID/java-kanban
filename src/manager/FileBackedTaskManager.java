@@ -13,84 +13,100 @@ public class FileBackedTaskManager extends InMemoryTaskManager {
     public FileBackedTaskManager(File file) {
         this.file = file;
     }
+
     @Override
     public void createTask(Task task) {
         super.createTask(task);
         save();
     }
+
     @Override
     public void createEpicTask(Epictask epictask) {
         super.createEpicTask(epictask);
         save();
     }
+
     @Override
     public void createSubtask(Subtask subtask) {
         super.createSubtask(subtask);
         save();
     }
+
     @Override
     public Task getTaskById(int id) {
         final Task task = super.getTaskById(id);
         save();
         return task;
     }
+
     @Override
     public Epictask getEpictaskById(int id) {
         final Epictask epic = super.getEpictaskById(id);
         save();
         return epic;
     }
+
     @Override
     public Subtask getSubtaskById(int id) {
         final Subtask subtask = super.getSubtaskById(id);
         save();
         return subtask;
     }
+
     @Override
     public void clearTasks() {
         super.clearTasks();
         save();
     }
+
     @Override
     public void clearEpics() {
         super.clearEpics();
         save();
     }
+
     @Override
     public void clearSubtasks() {
         super.clearSubtasks();
         save();
     }
+
     @Override
     public void renewTask(Task task) {
         super.renewTask(task);
         save();
     }
+
     @Override
     public void renewEpictask(Epictask epictask) {
         super.renewEpictask(epictask);
         save();
     }
+
     @Override
     public void renewSubtask(Subtask subtask) {
         super.renewSubtask(subtask);
         save();
     }
+
     @Override
     public void deleteTaskById(int id) {
         super.deleteTaskById(id);
         save();
     }
+
     @Override
     public void deleteEpictaskById(int id) {
         super.deleteEpictaskById(id);
         save();
     }
+
     @Override
     public void deleteSubtaskById(int id) {
         super.deleteSubtaskById(id);
         save();
     }
+
     private void save() {
         try (BufferedWriter writer = Files.newBufferedWriter(file.toPath(), StandardCharsets.UTF_8)) {
             writer.write(CSVSaveManager.getheader());
@@ -119,6 +135,7 @@ public class FileBackedTaskManager extends InMemoryTaskManager {
             }
         }
     }
+
     public static FileBackedTaskManager loadFromFile(File file) {
         FileBackedTaskManager fileBackedTaskManager = new FileBackedTaskManager(file);
         try {

@@ -18,10 +18,12 @@ public class CSVSaveManager {
         }
         return taskLine;
     }
+
     public static String getheader() {
         String header = "id,type,name,status,description,epic";
         return header;
     }
+
     public static Task fromString(String value) {
         String[] newLine = value.split(",");
         Status st;
@@ -40,6 +42,7 @@ public class CSVSaveManager {
             return new Subtask(Integer.parseInt(newLine[0]), newLine[2], newLine[4], st, Integer.parseInt(newLine[5]));
         }
     }
+
     public static Integer historyFromString(String value) {
         return  Integer.parseInt(value.substring(0, value.indexOf(",")));
     }
