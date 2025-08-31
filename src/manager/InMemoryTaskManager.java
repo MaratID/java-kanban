@@ -235,4 +235,5 @@ public class InMemoryTaskManager implements TaskManager {
     private int generateID() {
         return ++generatorId;
     }
+    //тест
 }

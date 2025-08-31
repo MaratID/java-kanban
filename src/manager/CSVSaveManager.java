@@ -48,4 +48,5 @@ public class CSVSaveManager {
     public static Integer historyFromString(String value) {
         return  Integer.parseInt(value.substring(0, value.indexOf(",")));
     }
+    //тест
 }

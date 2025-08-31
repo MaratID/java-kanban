@@ -34,4 +34,5 @@ public class InMemoryHistoryManagerTest {
         manager.clearTasks();
         Assertions.assertTrue(manager.getHistory().isEmpty(), "Список не пустой");
     }
+    //тест
 }

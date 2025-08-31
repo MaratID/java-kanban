@@ -11,4 +11,5 @@ public class Managers  {
         HistoryManager historyManager = new InMemoryHistoryManager();
         return historyManager;
     }
+    //тест
 }

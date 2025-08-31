@@ -19,4 +19,5 @@ public class Node {
                 this.task,
                 this.next);
     }
+    //тест
 }

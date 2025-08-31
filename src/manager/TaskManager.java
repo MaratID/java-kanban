@@ -47,4 +47,5 @@ public interface TaskManager {
     void deleteSubtaskById(int id);
 
     public ArrayList<Task> getHistory();
+    //тест
 }

@@ -25,5 +25,6 @@ public class Main {
         FileBackedTaskManager fileBackedTaskManager1 =
                 FileBackedTaskManager.loadFromFile(new File("files/tasks.csv"));
         fileBackedTaskManager1.getTaskById(2);
+        //тест
     }
 }

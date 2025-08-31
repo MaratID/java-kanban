@@ -69,4 +69,5 @@ public class InMemoryHistoryManager implements HistoryManager {
             nodenext.prev = nodeprev; //если был выбран узел в середине, то привязываем предыдущий и последующий узлы
         }
     }
+    //тест
 }
