@@ -1,22 +1,15 @@
 package ManagerTests;
-
-import manager.CSVSaveManager;
 import manager.FileBackedTaskManager;
-import manager.ManagerSaveException;
 import tasks.*;
-import manager.*;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.Assertions;
-
-import java.io.BufferedWriter;
 import java.io.File;
 import java.io.IOException;
 import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
-import java.util.Map;
 
 public class FileBackedTaskManagerTest {
-    
+
     File tempFile = File.createTempFile("tasksTest", null);
     FileBackedTaskManager fileBackedTaskManager = new FileBackedTaskManager(new File(String.valueOf(tempFile.toPath())));
 
@@ -30,7 +23,7 @@ public class FileBackedTaskManagerTest {
         fileBackedTaskManager.createTask(task);
         Assertions.assertEquals(task,fileBackedTaskManager.getTaskById(task.getTaskId()), "Задачи не совпали");
     }
-    
+
     @Test
     void shouldChekForFewTasksInFile() throws IOException {
         Task task = new Task("Купить мешок цемента", "Марка цемента", Status.NEW);
@@ -41,18 +34,14 @@ public class FileBackedTaskManagerTest {
         final String[] lines = archiveCSV.split(System.lineSeparator());
         Assertions.assertEquals(3, lines.length, "В файле иное количество задач");
     }
-    
+
     @Test
     void shouldLoadFromFile() throws IOException {
         Task task = new Task("Купить мешок цемента", "Марка цемента", Status.NEW);
         fileBackedTaskManager.createTask(task);
-        
-        FileBackedTaskManager fileBackedTaskManagerTest = 
+        FileBackedTaskManager fileBackedTaskManagerTest =
                 FileBackedTaskManager.loadFromFile(new File(String.valueOf(tempFile.toPath())));
-                
-        Assertions.assertEquals(fileBackedTaskManager.getTaskById(task.getTaskId()), 
+        Assertions.assertEquals(fileBackedTaskManager.getTaskById(task.getTaskId()),
                 fileBackedTaskManagerTest.getTaskById(task.getTaskId()), "Задачи не совпадают");
     }
-    
-    
 }
