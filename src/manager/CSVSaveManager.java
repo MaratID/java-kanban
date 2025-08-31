@@ -8,14 +8,14 @@ public class CSVSaveManager {
         Subtask s = new Subtask("1", "2", Status.NEW, 0);
         String taskLine = "";
         if (task.getClass() == s.getClass()) {
-            taskLine = ""+task.getTaskId()+ "," + TaskTypes.TYPE_SUBTASK + "," +
-                    task.getName()+ "," + task.getStatus()+ "," + task.getDetails()+ "," + ((Subtask) task).getEpicId();
+            taskLine = "" + task.getTaskId() + "," + TaskTypes.TYPE_SUBTASK + "," +
+                    task.getName() + "," + task.getStatus() + "," + task.getDetails() + "," + ((Subtask) task).getEpicId();
         } else if (task.getClass() == task1.getClass()){
             taskLine = "" + task.getTaskId() + "," + TaskTypes.TYPE_TASK + "," +
-                    task.getName()+ "," + task.getStatus() + "," + task.getDetails();
+                    task.getName() + "," + task.getStatus() + "," + task.getDetails();
         } else {
-            taskLine = "" + task.getTaskId()+ "," + TaskTypes.TYPE_EPIC + "," +
-                    task.getName()+ "," + task.getStatus()+ "," + task.getDetails();
+            taskLine = "" + task.getTaskId() + "," + TaskTypes.TYPE_EPIC + "," +
+                    task.getName() + "," + task.getStatus() + "," + task.getDetails();
         }
         return taskLine;
     }
