@@ -10,7 +10,7 @@ public class CSVSaveManager {
         if (task.getClass() == s.getClass()) {
             taskLine = "" + task.getTaskId() + "," + TaskTypes.TYPE_SUBTASK + "," +
                     task.getName() + "," + task.getStatus() + "," + task.getDetails() + "," + ((Subtask) task).getEpicId();
-        } else if (task.getClass() == task1.getClass()){
+        } else if (task.getClass() == task1.getClass()) {
             taskLine = "" + task.getTaskId() + "," + TaskTypes.TYPE_TASK + "," +
                     task.getName() + "," + task.getStatus() + "," + task.getDetails();
         } else {
