@@ -4,7 +4,6 @@ import java.util.ArrayList;
 
 public interface TaskManager {
     //получить список Задач
-
     ArrayList<Task> getTaskList();
     //получить список Эпиков
 
@@ -18,29 +17,29 @@ public interface TaskManager {
     void clearEpics();
 
     void clearSubtasks();
-    //получение по Id
 
+    //получение по Id
     Task getTaskById(int id);
 
     Epictask getEpictaskById(int id);
 
     Subtask getSubtaskById(int id);
-    //создание Задач
 
+    //создание Задач
     void createTask(Task task);
 
     void createEpicTask(Epictask epictask);
 
     void createSubtask(Subtask subtask);
-    //обновление задач
 
+    //обновление задач
     void renewTask(Task task);
 
     void renewEpictask(Epictask epictask);
 
     void renewSubtask(Subtask subtask);
-    //удаление по id
 
+    //удаление по id
     void deleteTaskById(int id);
 
     void deleteEpictaskById(int id);
@@ -48,5 +47,5 @@ public interface TaskManager {
     void deleteSubtaskById(int id);
 
     public ArrayList<Task> getHistory();
-
+    //тест
 }

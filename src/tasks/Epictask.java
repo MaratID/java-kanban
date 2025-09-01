@@ -2,6 +2,7 @@ package tasks;
 import java.util.ArrayList;
 
 public class Epictask extends Task {
+
     private ArrayList<Integer> subtasksIds = new ArrayList<>();
 
     public Epictask(String name, String details) {
@@ -40,4 +41,5 @@ public class Epictask extends Task {
                 "subtasksIds=" + subtasksIds +
                 '}';
     }
+    //тест
 }

@@ -6,13 +6,17 @@ import java.util.Iterator;
 
 public class InMemoryTaskManager implements TaskManager {
     //список Задач
-    private final HashMap<Integer, Task> tasks = new HashMap<>();
+    public final HashMap<Integer, Task> tasks = new HashMap<>();
     //списки Эпиков
-    private final HashMap<Integer, Epictask> epicTasks = new HashMap<>();
+    public final HashMap<Integer, Epictask> epicTasks = new HashMap<>();
     //список подзадач
-    private final HashMap<Integer, Subtask> subtasks = new HashMap<>();
-    private final HistoryManager historyManager = Managers.getDefaultHistory();
-    private int generatorId = 0;
+    public final HashMap<Integer, Subtask> subtasks = new HashMap<>();
+    public final HistoryManager historyManager = Managers.getDefaultHistory();
+    public int generatorId = 0;
+
+    public HistoryManager getHistoryManager() {
+        return historyManager;
+    }
 
     @Override
     public ArrayList<Task> getTaskList() {
@@ -218,7 +222,6 @@ public class InMemoryTaskManager implements TaskManager {
             } else if (subtaskStatus.equals(Status.DONE)) {
                 countDone++;
             }
-
             if (countNew == epictask.getSubtasksIds().size()) {
                 epictask.setStatus(Status.NEW);
             } else if (countDone == epictask.getSubtasksIds().size()) {
@@ -232,4 +235,5 @@ public class InMemoryTaskManager implements TaskManager {
     private int generateID() {
         return ++generatorId;
     }
+    //тест
 }
