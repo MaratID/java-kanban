@@ -17,6 +17,42 @@ public class FileBackedTaskManager extends InMemoryTaskManager {
         this.file = file;
     }
 
+    public static FileBackedTaskManager loadFromFile(File file) {
+        FileBackedTaskManager fileBackedTaskManager = new FileBackedTaskManager(file);
+        try {
+            final String archiveCSV = Files.readString(file.toPath(), StandardCharsets.UTF_8);
+            final String[] lines = archiveCSV.split(System.lineSeparator());
+            int generatorID = 0;
+            List<Integer> history = Collections.emptyList();
+            for (int i = 1; i < lines.length; i++) {
+                String line = lines[i];
+                if (line.isEmpty()) {
+                    history.add(CSVSaveManager.historyFromString(lines[i + 1]));
+                    break;
+                }
+                String[] subLines = line.split(",");
+                final Task task = CSVSaveManager.fromString(line);
+                final int id = task.getTaskId();
+                if (id > generatorID) {
+                    generatorID = id;
+                }
+                fileBackedTaskManager.createTask(task);
+            }
+            for (Subtask s : fileBackedTaskManager.getSubTaskList()) {
+                final Subtask subtask = s;
+                final Epictask epic = fileBackedTaskManager.getEpicTaskList().get(subtask.getEpicId());
+                epic.addSubtaskIDs(subtask.getTaskId());
+            }
+            for (Integer taskID : history) {
+                fileBackedTaskManager.historyManager.add(fileBackedTaskManager.getTaskById(taskID));
+            }
+            fileBackedTaskManager.generatorId = generatorID;
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+        return fileBackedTaskManager;
+    }
+
     @Override
     public void createTask(Task task) {
         super.createTask(task);
@@ -137,42 +173,6 @@ public class FileBackedTaskManager extends InMemoryTaskManager {
                 throw new RuntimeException(ex);
             }
         }
-    }
-
-    public static FileBackedTaskManager loadFromFile(File file) {
-        FileBackedTaskManager fileBackedTaskManager = new FileBackedTaskManager(file);
-        try {
-            final String archiveCSV = Files.readString(file.toPath(), StandardCharsets.UTF_8);
-            final String[] lines = archiveCSV.split(System.lineSeparator());
-            int generatorID = 0;
-            List<Integer> history = Collections.emptyList();
-            for (int i = 1; i < lines.length; i++) {
-                String line = lines[i];
-                if (line.isEmpty()) {
-                    history.add(CSVSaveManager.historyFromString(lines[i + 1]));
-                    break;
-                }
-                String[] subLines = line.split(",");
-                final Task task = CSVSaveManager.fromString(line);
-                final int id = task.getTaskId();
-                if (id > generatorID) {
-                    generatorID = id;
-                }
-                fileBackedTaskManager.createTask(task);
-            }
-            for (Subtask s : fileBackedTaskManager.getSubTaskList()) {
-                final Subtask subtask = s;
-                final Epictask epic = fileBackedTaskManager.getEpicTaskList().get(subtask.getEpicId());
-                epic.addSubtaskIDs(subtask.getTaskId());
-            }
-            for (Integer taskID : history) {
-                fileBackedTaskManager.historyManager.add(fileBackedTaskManager.getTaskById(taskID));
-            }
-            fileBackedTaskManager.generatorId = generatorID;
-        } catch (IOException e) {
-            throw new RuntimeException(e);
-        }
-        return fileBackedTaskManager;
     }
     //тест
 }
