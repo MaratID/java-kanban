@@ -3,6 +3,7 @@ import tasks.Task;
 import java.util.*;
 
 public class InMemoryHistoryManager implements HistoryManager {
+
     private final Map<Integer, Node> nodesMap = new HashMap<>();
     private Node first;
     private Node last;
@@ -57,19 +58,16 @@ public class InMemoryHistoryManager implements HistoryManager {
         }
         final Node nodenext = node.next; //делаем следующим следующий за выбранным узел
         final Node nodeprev = node.prev; //делаем предыдущим предыдущий за выбранным узел
-
         if (nodeprev == null) { //если был исключен первый узел
             first = nodenext; //то новый первый становиться следующий за исключенным
         } else {
             nodeprev.next = nodenext; //иначе привязываем предшествующий с последующим от выбранного
         }
-
         if (nodenext == null) { //если был выбран последний узел
             last = nodeprev; //делаем последним предпоследний
         } else {
             nodenext.prev = nodeprev; //если был выбран узел в середине, то привязываем предыдущий и последующий узлы
         }
-
     }
-
+    //тест
 }
