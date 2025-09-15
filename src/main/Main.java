@@ -8,7 +8,7 @@ public class Main {
 
     public static void main(String[] args) throws IOException {
         FileBackedTaskManager fileBackedTaskManager = new FileBackedTaskManager(new File("files/tasks.csv"));
-        fileBackedTaskManager.createTask(new Task("Переехать на новую квартиру", "Детали главной задачи",
+        /*fileBackedTaskManager.createTask(new Task("Переехать на новую квартиру", "Детали главной задачи",
                 Status.NEW));
         fileBackedTaskManager.createTask(new Task("Выпить бокал вина после переезда",
                 "Детали винной задачи", Status.NEW));
@@ -21,7 +21,7 @@ public class Main {
         fileBackedTaskManager.createSubtask(new Subtask("Погрузить машину",
                 "Детали подзадачит по погрузке машины", Status.NEW, 3));
         fileBackedTaskManager.createEpicTask(new Epictask("Убраться в старой квартире",
-                "Детали эпика по уборке старой квартиры"));
+                "Детали эпика по уборке старой квартиры"));*/
         FileBackedTaskManager fileBackedTaskManager1 =
                 FileBackedTaskManager.loadFromFile(new File("files/tasks.csv"));
         fileBackedTaskManager1.getTaskById(2);

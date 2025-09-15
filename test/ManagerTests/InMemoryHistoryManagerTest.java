@@ -3,6 +3,9 @@ import tasks.*;
 import manager.*;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.Assertions;
+
+import java.time.Duration;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 
 public class InMemoryHistoryManagerTest {
@@ -13,10 +16,12 @@ public class InMemoryHistoryManagerTest {
     @Test
     void shouldReturnEqualListsAfterTaskStatusChanging() {
         ArrayList<Task> chekList = new ArrayList<>();
-        Task task = new Task(1, "task Name", "task Details", Status.NEW);
+        Task task = new Task(1, "task Name", "task Details", Status.NEW, 
+                Duration.ofDays(1), LocalDateTime.now());
         taskmanager.createTask(task);
         taskmanager.getTaskById(1);
-        Task task1 = new Task(1, "task Name", "task Details2", Status.IN_POGRESS);
+        Task task1 = new Task(1, "task Name", "task Details2", Status.IN_POGRESS, 
+                Duration.ofDays(1), LocalDateTime.now());
         taskmanager.renewTask(task1);
         taskmanager.getTaskById(1);
         chekList.add(task1);
@@ -26,7 +31,8 @@ public class InMemoryHistoryManagerTest {
     @Test
     void shouldReturnEmptyListAfterTaskRemoveFromHistory() {
         ArrayList<Task> historyOfTasks = new ArrayList<>();
-        Task task = new Task(1, "testTask Name", "task Details", Status.NEW);
+        Task task = new Task(1, "testTask Name", "task Details", Status.NEW, 
+                Duration.ofDays(1), LocalDateTime.now());
         InMemoryTaskManager manager = new InMemoryTaskManager();
         manager.createTask(task);
         manager.getTaskById(1);

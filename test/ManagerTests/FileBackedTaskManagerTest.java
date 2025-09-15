@@ -7,6 +7,8 @@ import java.io.File;
 import java.io.IOException;
 import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
+import java.time.Duration;
+import java.time.LocalDateTime;
 
 public class FileBackedTaskManagerTest {
 
@@ -18,16 +20,20 @@ public class FileBackedTaskManagerTest {
 
     @Test
     void shoultReturnEqualTasksIds() throws IOException {
-        Task task = new Task("Купить мешок цемента", "Марка цемента", Status.NEW);
-        Task task1 = new Task("Купить мешок картошки", "Картошка краснодарская", Status.NEW);
+        Task task = new Task("Купить мешок цемента", "Марка цемента", Status.NEW, 
+                Duration.ofDays(1), LocalDateTime.now());
+        Task task1 = new Task("Купить мешок картошки", "Картошка краснодарская", Status.NEW, 
+                Duration.ofDays(1), LocalDateTime.now());
         fileBackedTaskManager.createTask(task);
         Assertions.assertEquals(task,fileBackedTaskManager.getTaskById(task.getTaskId()), "Задачи не совпали");
     }
 
     @Test
     void shouldChekForFewTasksInFile() throws IOException {
-        Task task = new Task("Купить мешок цемента", "Марка цемента", Status.NEW);
-        Task task1 = new Task("Купить мешок картошки", "Картошка краснодарская", Status.NEW);
+        Task task = new Task("Купить мешок цемента", "Марка цемента", Status.NEW, 
+                Duration.ofDays(1), LocalDateTime.now());
+        Task task1 = new Task("Купить мешок картошки", "Картошка краснодарская", Status.NEW, 
+                Duration.ofDays(1), LocalDateTime.now());
         fileBackedTaskManager.createTask(task);
         fileBackedTaskManager.createTask(task1);
         String archiveCSV = Files.readString(tempFile.toPath(), StandardCharsets.UTF_8);
@@ -37,7 +43,8 @@ public class FileBackedTaskManagerTest {
 
     @Test
     void shouldLoadFromFile() throws IOException {
-        Task task = new Task("Купить мешок цемента", "Марка цемента", Status.NEW);
+        Task task = new Task("Купить мешок цемента", "Марка цемента", Status.NEW, 
+                Duration.ofDays(1), LocalDateTime.now());
         fileBackedTaskManager.createTask(task);
         FileBackedTaskManager fileBackedTaskManagerTest =
                 FileBackedTaskManager.loadFromFile(new File(String.valueOf(tempFile.toPath())));
