@@ -3,14 +3,14 @@ import manager.*;
 import tasks.*;
 import java.io.File;
 import java.io.IOException;
-
+import java.time.Duration;
+import java.time.LocalDateTime;
 public class Main {
-
     public static void main(String[] args) throws IOException {
         FileBackedTaskManager fileBackedTaskManager = new FileBackedTaskManager(new File("files/tasks.csv"));
-        /*fileBackedTaskManager.createTask(new Task("Переехать на новую квартиру", "Детали главной задачи",
-                Status.NEW));
-        fileBackedTaskManager.createTask(new Task("Выпить бокал вина после переезда",
+        fileBackedTaskManager.createTask(new Task("Переехать на новую квартиру", "Детали главной задачи",
+                Status.NEW, Duration.ofDays(2), LocalDateTime.now()));
+        /*fileBackedTaskManager.createTask(new Task("Выпить бокал вина после переезда",
                 "Детали винной задачи", Status.NEW));
         fileBackedTaskManager.createEpicTask(new Epictask("Погрузить вещи в машину",
                 "Детали эпика по загрузке машины"));
@@ -21,10 +21,10 @@ public class Main {
         fileBackedTaskManager.createSubtask(new Subtask("Погрузить машину",
                 "Детали подзадачит по погрузке машины", Status.NEW, 3));
         fileBackedTaskManager.createEpicTask(new Epictask("Убраться в старой квартире",
-                "Детали эпика по уборке старой квартиры"));*/
+                "Детали эпика по уборке старой квартиры"));*//*
         FileBackedTaskManager fileBackedTaskManager1 =
                 FileBackedTaskManager.loadFromFile(new File("files/tasks.csv"));
         fileBackedTaskManager1.getTaskById(2);
-        //тест
+        //тест*/
     }
 }

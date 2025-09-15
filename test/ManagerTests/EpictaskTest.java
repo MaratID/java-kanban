@@ -16,29 +16,29 @@ class EpictaskTest {
         Epictask epictask2 = new Epictask(2,"task1", "task1Details", Duration.ofSeconds(1), LocalDateTime.now());
         Assertions.assertTrue(epictask1.equals(epictask2), "Не прошло");
     }
-    
+
     @Test
     void shouldreturnNewStatusForEpickTask() {
         InMemoryTaskManager memoryManager = new InMemoryTaskManager();
         Epictask epictask = new Epictask("Завести машину", "Завести поворотом ключа", Duration.ofSeconds(2), LocalDateTime.now());
         memoryManager.createEpicTask(epictask);
         int id = memoryManager.epicTasks.entrySet().iterator().next().getKey();
-        
+
         Subtask subtask1 = new Subtask("Поворот коюча", "Поодержать в конце поворота", Status.NEW, id,
                 Duration.ofSeconds(2), LocalDateTime.now());
         Subtask subtask2 = new Subtask("Вращение стартера", "Машину немного потрясет", Status.NEW, id,
                 Duration.ofSeconds(2), subtask1.getTaskStartTime().plusSeconds(2));
-        
+
         memoryManager.createSubtask(subtask1);
         memoryManager.createSubtask(subtask2);
-        Assertions.assertEquals(memoryManager.epicTasks.entrySet().iterator().next().getValue().getStatus(), 
+        Assertions.assertEquals(memoryManager.epicTasks.entrySet().iterator().next().getValue().getStatus(),
                 Status.NEW, "Статусы разные");
     }
-    
+
     @Test
     void shouldreturnDoneStatusForEpickTask() {
         InMemoryTaskManager memoryManager = new InMemoryTaskManager();
-        Epictask epictask = new Epictask("Завести машину", "Завести поворотом ключа", 
+        Epictask epictask = new Epictask("Завести машину", "Завести поворотом ключа",
                 Duration.ofSeconds(1), LocalDateTime.now());
         memoryManager.createEpicTask(epictask);
         int id = memoryManager.epicTasks.entrySet().iterator().next().getKey();
@@ -57,7 +57,7 @@ class EpictaskTest {
     @Test
     void shouldreturnINPROGRESSStatusForEpickTask() {
         InMemoryTaskManager memoryManager = new InMemoryTaskManager();
-        Epictask epictask = new Epictask("Завести машину", "Завести поворотом ключа", 
+        Epictask epictask = new Epictask("Завести машину", "Завести поворотом ключа",
                 Duration.ofSeconds(1), LocalDateTime.now());
         memoryManager.createEpicTask(epictask);
         int id = memoryManager.epicTasks.entrySet().iterator().next().getKey();
@@ -77,7 +77,7 @@ class EpictaskTest {
         memoryManager.createSubtask(subtask3);
         memoryManager.createSubtask(subtask4);
         Status inProgress = memoryManager.epicTasks.entrySet().iterator().next().getValue().getStatus();
-        
+
         Assertions.assertEquals(newDone, Status.IN_POGRESS, "Статусы разные");
         Assertions.assertEquals(inProgress, Status.IN_POGRESS, "Статусы разные");
     }

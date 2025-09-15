@@ -1,12 +1,9 @@
 package manager;
 import tasks.*;
-
 import java.time.Duration;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
-
 public class CSVSaveManager {
-
     public static String toString(Task task) {
         Task task1 = new Task(0, "n", "d", Duration.ofMinutes(10), LocalDateTime.of(2025, 9,
                 11, 10,10,0));
@@ -48,12 +45,10 @@ public class CSVSaveManager {
         }
         return taskLine;
     }
-
     public static String getheader() {
         String header = "id,type,name,status,description,epic, duration, startTime";
         return header;
     }
-
     public static Task fromString(String value) {
         String[] newLine = value.split(",");
         Status st;
@@ -65,8 +60,8 @@ public class CSVSaveManager {
             st = Status.DONE;
         }
         if (newLine[1].equals("TYPE_TASK")) {
-           return new Task(Integer.parseInt(newLine[0]), newLine[2], newLine[4], st, 
-                   Duration.ofMinutes(Long.parseLong(newLine[6])), LocalDateTime.parse(newLine[7], 
+           return new Task(Integer.parseInt(newLine[0]), newLine[2], newLine[4], st,
+                   Duration.ofMinutes(Long.parseLong(newLine[6])), LocalDateTime.parse(newLine[7],
                    DateTimeFormatter.ofPattern("yyyy-MMMM-dd , HH:mm")));
         } else if (newLine[1].equals("TYPE_EPIC")) {
            return new Epictask(Integer.parseInt(newLine[0]), newLine[2], newLine[4], Duration.ofMinutes(Long.parseLong(newLine[6])), LocalDateTime.parse(newLine[7],
@@ -77,7 +72,6 @@ public class CSVSaveManager {
                     DateTimeFormatter.ofPattern("yyyy-MMMM-dd , HH:mm")));
         }
     }
-
     public static Integer historyFromString(String value) {
         return  Integer.parseInt(value.substring(0, value.indexOf(",")));
     }

@@ -1,7 +1,6 @@
 package manager;
 import tasks.*;
 
-import java.io.IOException;
 import java.time.LocalDateTime;
 import java.util.*;
 
@@ -114,12 +113,12 @@ public class InMemoryTaskManager implements TaskManager {
         //код для класса SubTask
         final int epicId = subtask.getEpicId();
         Epictask epic = epicTasks.get(epicId);
-        
+
         Optional<Subtask> earliestSubtask = epic.getSubtasksIds().stream()
                 .map(this::getSubtaskById)
                 .min(Comparator.comparing(Subtask::getTaskStartTime));
         earliestSubtask.ifPresent(subtask1 -> epic.setEpickStartTime(subtask1.getTaskStartTime()));
-        
+
         if (epic == null) {
             throw new IllegalArgumentException("Эпик с таким ID " + epicId + " не существует");
         }
@@ -252,7 +251,7 @@ public class InMemoryTaskManager implements TaskManager {
         return !OverLap;
         //!!!!!!!!!!!!!!!продумать как не пересекаться эпикам!!!
     }
-    
+
     private void add(Task task) {
         Optional<Task> overLapping = prioritizedTasks.stream()
                 .filter(existTask -> overLap(task, existTask))
@@ -267,7 +266,7 @@ public class InMemoryTaskManager implements TaskManager {
         }
         prioritizedTasks.add(task);
     }
-    
+
     private TreeSet<Task> getPrioritizedTasks(Task task) {
         return prioritizedTasks;
     }

@@ -20,9 +20,9 @@ public class FileBackedTaskManagerTest {
 
     @Test
     void shoultReturnEqualTasksIds() throws IOException {
-        Task task = new Task("Купить мешок цемента", "Марка цемента", Status.NEW, 
+        Task task = new Task("Купить мешок цемента", "Марка цемента", Status.NEW,
                 Duration.ofDays(1), LocalDateTime.now());
-        Task task1 = new Task("Купить мешок картошки", "Картошка краснодарская", Status.NEW, 
+        Task task1 = new Task("Купить мешок картошки", "Картошка краснодарская", Status.NEW,
                 Duration.ofDays(1), LocalDateTime.now());
         fileBackedTaskManager.createTask(task);
         Assertions.assertEquals(task,fileBackedTaskManager.getTaskById(task.getTaskId()), "Задачи не совпали");
@@ -30,9 +30,9 @@ public class FileBackedTaskManagerTest {
 
     @Test
     void shouldChekForFewTasksInFile() throws IOException {
-        Task task = new Task("Купить мешок цемента", "Марка цемента", Status.NEW, 
+        Task task = new Task("Купить мешок цемента", "Марка цемента", Status.NEW,
                 Duration.ofDays(1), LocalDateTime.now());
-        Task task1 = new Task("Купить мешок картошки", "Картошка краснодарская", Status.NEW, 
+        Task task1 = new Task("Купить мешок картошки", "Картошка краснодарская", Status.NEW,
                 Duration.ofDays(1), LocalDateTime.now());
         fileBackedTaskManager.createTask(task);
         fileBackedTaskManager.createTask(task1);
@@ -43,7 +43,7 @@ public class FileBackedTaskManagerTest {
 
     @Test
     void shouldLoadFromFile() throws IOException {
-        Task task = new Task("Купить мешок цемента", "Марка цемента", Status.NEW, 
+        Task task = new Task("Купить мешок цемента", "Марка цемента", Status.NEW,
                 Duration.ofDays(1), LocalDateTime.now());
         fileBackedTaskManager.createTask(task);
         FileBackedTaskManager fileBackedTaskManagerTest =
