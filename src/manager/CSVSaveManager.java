@@ -3,6 +3,7 @@ import tasks.*;
 import java.time.Duration;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
+
 public class CSVSaveManager {
     public static String toString(Task task) {
         Task task1 = new Task(0, "n", "d", Duration.ofMinutes(10), LocalDateTime.of(2025, 9,
@@ -45,10 +46,12 @@ public class CSVSaveManager {
         }
         return taskLine;
     }
+
     public static String getheader() {
         String header = "id,type,name,status,description,epic, duration, startTime";
         return header;
     }
+
     public static Task fromString(String value) {
         String[] newLine = value.split(",");
         Status st;
@@ -72,6 +75,7 @@ public class CSVSaveManager {
                     DateTimeFormatter.ofPattern("yyyy-MMMM-dd , HH:mm")));
         }
     }
+
     public static Integer historyFromString(String value) {
         return  Integer.parseInt(value.substring(0, value.indexOf(",")));
     }
