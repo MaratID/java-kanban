@@ -59,7 +59,7 @@ public class InMemoryTaskManager implements TaskManager {
         epicTasks.clear();
         subtasks.clear();
     }
-//вот тут 13.09.2025 11:41
+
     @Override
     public void clearSubtasks() {
         subtasks.keySet().stream()
@@ -247,9 +247,8 @@ public class InMemoryTaskManager implements TaskManager {
         LocalDateTime start2 = task2.getTaskStartTime();
         LocalDateTime end2 = task2.getEndTime();
 
-        boolean OverLap = start2.isAfter(end1) || start1.isAfter(end2);
-        return !OverLap;
-        //!!!!!!!!!!!!!!!продумать как не пересекаться эпикам!!!
+        boolean overLap = start2.isAfter(end1) || start1.isAfter(end2);
+        return !overLap;
     }
 
     private void add(Task task) {
