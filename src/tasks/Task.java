@@ -95,7 +95,7 @@ public class Task {
         return taskStartTime;
     }
 
-    public LocalDateTime getEndTime(){
+    public LocalDateTime getEndTime() {
         return taskStartTime.plusMinutes(taskDuration.toMinutes());
     }
 
