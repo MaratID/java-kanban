@@ -21,9 +21,11 @@ public class InMemoryTaskManager implements TaskManager {
 
     @Override
     public ArrayList<Task> getTaskList() {
-        return (ArrayList<Task>) tasks.keySet().stream()
-                .map(tasks::get)
-                .toList();
+        ArrayList<Task> list = new ArrayList<>();
+        for (Integer key : tasks.keySet()) {
+            list.add(tasks.get(key));
+        }
+        return list;
     }
 
     @Override
@@ -37,9 +39,11 @@ public class InMemoryTaskManager implements TaskManager {
 
     @Override
     public ArrayList<Subtask> getSubTaskList() {
-        return (ArrayList<Subtask>) subtasks.keySet().stream()
-                .map(subtasks::get)
-                .toList();
+        ArrayList<Subtask> list = new ArrayList<>();
+        for (Integer key : subtasks.keySet()) {
+            list.add(subtasks.get(key));
+        }
+        return list;
     }
 
     @Override
@@ -114,17 +118,17 @@ public class InMemoryTaskManager implements TaskManager {
         final int epicId = subtask.getEpicId();
         Epictask epic = epicTasks.get(epicId);
 
-        Optional<Subtask> earliestSubtask = epic.getSubtasksIds().stream()
-                .map(this::getSubtaskById)
-                .min(Comparator.comparing(Subtask::getTaskStartTime));
-        earliestSubtask.ifPresent(subtask1 -> epic.setEpickStartTime(subtask1.getTaskStartTime()));
-
         if (epic == null) {
-            throw new IllegalArgumentException("Эпик с таким ID " + epicId + " не существует");
+            throw new IllegalArgumentException("Эпик с таким ID " + epicId + " не существует"); //вот тут продумать для несуществующего эпика!!!
         }
         if (subtask.getTaskId() == subtask.getEpicId()) {
             throw new IllegalArgumentException("Субтаск не может быть для себя эпиком");
         }
+        Optional<Subtask> earliestSubtask = epic.getSubtasksIds().stream()
+                .map(this::getSubtaskById)
+                .min(Comparator.comparing(Subtask::getTaskStartTime));
+        earliestSubtask.ifPresent(subtask1 -> epic.setEpickStartTime(subtask1.getTaskStartTime()));
+        
         subtask.setTaskId(generateID());
         subtasks.put(subtask.getTaskId(), subtask);
         epic.addSubtaskIDs(subtask.getTaskId());
@@ -252,16 +256,19 @@ public class InMemoryTaskManager implements TaskManager {
     }
 
     private void add(Task task) {
-        Optional<Task> overLapping = prioritizedTasks.stream()
-                .filter(existTask -> overLap(task, existTask))
-                .findFirst();
-        try {
-            if (overLapping.isPresent()) {
-                String message = "Задачи пересекаются";
-                throw new TaskValidationExeption(message);
+        //нужно что-то прописать когда prioritizedtasks пустой!!!
+        if (!prioritizedTasks.isEmpty()) {
+            Optional<Task> overLapping = prioritizedTasks.stream()
+                    .filter(existTask -> overLap(task, existTask))
+                    .findFirst();
+            try {
+                if (overLapping.isPresent()) {
+                    String message = "Задачи пересекаются";
+                    throw new TaskValidationExeption(message);
+                }
+            } catch (TaskValidationExeption e) {
+                throw new RuntimeException(e);
             }
-        } catch (TaskValidationExeption e) {
-            throw new RuntimeException(e);
         }
         prioritizedTasks.add(task);
     }

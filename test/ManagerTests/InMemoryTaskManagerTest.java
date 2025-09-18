@@ -31,15 +31,16 @@ class InMemoryTaskManagerTest {
 
     @Test
     void ShouldNotCreateSubtask() {
-        Epictask epictask = new Epictask(1, "epictask", "epictaskDetails", Duration.ofDays(1),
-                LocalDateTime.now());
+        Epictask epictask = new Epictask(1, "epictask", "epictaskDetails", Duration.ofMinutes(1),
+                LocalDateTime.of(2025, 9, 1, 0,0,0));
         taskManager.createEpicTask(epictask);
         Subtask subtask = new Subtask(2, "epictask", "epictaskDetails", Status.NEW, 1,
-                Duration.ofDays(1), LocalDateTime.now());
+                Duration.ofMinutes(1), LocalDateTime.of(2025, 9, 1, 0,2,0));
         taskManager.createSubtask(subtask);
         int invalidEpicId = 3;
-        Subtask subtask1 = new Subtask (invalidEpicId, "Подзадача 2", "Описание подзадачи 2",
-                Status.NEW, invalidEpicId, Duration.ofDays(1), LocalDateTime.now());
+        Subtask subtask1 = new Subtask ("Подзадача 2", "Описание подзадачи 2",
+                Status.NEW, invalidEpicId, Duration.ofMinutes(1), 
+                LocalDateTime.of(2025, 9, 1, 0,10,0));
         //When/Then создаем подзадачу и ожидаем исключение
         Assertions.assertThrows(IllegalArgumentException.class, () -> taskManager.createSubtask(subtask1));
     }
@@ -56,13 +57,15 @@ class InMemoryTaskManagerTest {
 
     @Test
     void shouldReturnEqualForDifferentTaskType() {
-        Task task = new Task("Test task", "Test Task details");
+        Task task = new Task("Test task", "Test Task details", Duration.ofMinutes(1),
+                LocalDateTime.of(2025, 9,16,0,0,0));
         taskManager.createTask(task);
-        Epictask epic = new Epictask("Test Epictask", "Test Epictask details", Duration.ofDays(1),
-                LocalDateTime.now());
+        Epictask epic = new Epictask("Test Epictask", "Test Epictask details", Duration.ofMinutes(1),
+                LocalDateTime.of(2025, 9,15,0,0,0));
         taskManager.createEpicTask(epic);
         Subtask subtask = new Subtask("Test SubtaskInepic", "Test SubtaskInepic details", Status.NEW,
-                epic.getTaskId(), Duration.ofDays(1), LocalDateTime.now());
+                epic.getTaskId(), Duration.ofMinutes(1), 
+                LocalDateTime.of(2025,9,16,0,10,0));
         taskManager.createSubtask(subtask);
         Assertions.assertEquals(task, taskManager.getTaskById(task.getTaskId()), "Таски не равны");
         Assertions.assertEquals(epic, taskManager.getEpictaskById(epic.getTaskId()), "Эпики не равны");
@@ -71,9 +74,12 @@ class InMemoryTaskManagerTest {
 
     @Test
     void shouldReturnTwoTasksForGenerateAndGivenId() {
-        Task task1 = new Task(1,"Test task1", "Test Task details");
-        Task task2 = new Task("Test task2", "Test Task details");
-        Task task3 = new Task("Test task3", "Test Task details");
+        Task task1 = new Task(1,"Test task1", "Test Task details",Duration.ofMinutes(1),
+                LocalDateTime.of(2025, 9, 1, 0,0,0));
+        Task task2 = new Task("Test task2", "Test Task details", Duration.ofMinutes(1),
+                LocalDateTime.of(2025,9,1,0,10,0));
+        Task task3 = new Task("Test task3", "Test Task details", Duration.ofMinutes(1),
+                LocalDateTime.of(2025,9,1,0,15,0));
         ArrayList<Task> tasksChekList = new ArrayList<>();
         tasksChekList.add(task1);
         tasksChekList.add(task2);
@@ -97,10 +103,11 @@ class InMemoryTaskManagerTest {
     @Test
     void shouldNotStayUnactualSubtasksinEpictasks() {
         InMemoryTaskManager manager = new InMemoryTaskManager();
-        manager.createEpicTask(new Epictask("Epicname1", "Epicname1 details", Duration.ofDays(1),
-                LocalDateTime.now()));
+        manager.createEpicTask(new Epictask("Epicname1", "Epicname1 details", Duration.ofMinutes(1),
+                LocalDateTime.of(2025, 9, 1, 0,0,0)));
         manager.createSubtask(new Subtask(2,"Subtask1Name", "Subtask1 Details", Status.NEW,
-            manager.getEpicTaskList().getFirst().getTaskId(), Duration.ofDays(1), LocalDateTime.now()));
+            manager.getEpicTaskList().getFirst().getTaskId(), Duration.ofMinutes(1), 
+                LocalDateTime.of(2025, 9, 1, 0,10,0)));
         //заменяем статус Субтаска внутри эпика на IN_POGRESS
         Subtask subtask = manager.getSubtaskById(2);
         subtask.setStatus(Status.IN_POGRESS);

@@ -73,7 +73,7 @@ class EpictaskTest {
         Subtask subtask3 = new Subtask("Поворот коюча", "Поодержать в конце поворота", Status.IN_POGRESS, id,
                 Duration.ofSeconds(2), LocalDateTime.now());
         Subtask subtask4 = new Subtask("Вращение стартера", "Машину немного потрясет", Status.IN_POGRESS, id,
-                Duration.ofSeconds(2), subtask1.getTaskStartTime().plusSeconds(2));
+                Duration.ofSeconds(2), subtask1.getTaskStartTime().plusSeconds(3));
         memoryManager.createSubtask(subtask3);
         memoryManager.createSubtask(subtask4);
         Status inProgress = memoryManager.epicTasks.entrySet().iterator().next().getValue().getStatus();

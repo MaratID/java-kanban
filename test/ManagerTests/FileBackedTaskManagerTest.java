@@ -31,9 +31,9 @@ public class FileBackedTaskManagerTest {
     @Test
     void shouldChekForFewTasksInFile() throws IOException {
         Task task = new Task("Купить мешок цемента", "Марка цемента", Status.NEW,
-                Duration.ofDays(1), LocalDateTime.now());
+                Duration.ofSeconds(1), LocalDateTime.of(2025,9,15,0,0,0));
         Task task1 = new Task("Купить мешок картошки", "Картошка краснодарская", Status.NEW,
-                Duration.ofDays(1), LocalDateTime.now());
+                Duration.ofSeconds(1), LocalDateTime.of(2025,9,16,0,0,0));
         fileBackedTaskManager.createTask(task);
         fileBackedTaskManager.createTask(task1);
         String archiveCSV = Files.readString(tempFile.toPath(), StandardCharsets.UTF_8);
@@ -44,7 +44,7 @@ public class FileBackedTaskManagerTest {
     @Test
     void shouldLoadFromFile() throws IOException {
         Task task = new Task("Купить мешок цемента", "Марка цемента", Status.NEW,
-                Duration.ofDays(1), LocalDateTime.now());
+                Duration.ofMinutes(15), LocalDateTime.now());
         fileBackedTaskManager.createTask(task);
         FileBackedTaskManager fileBackedTaskManagerTest =
                 FileBackedTaskManager.loadFromFile(new File(String.valueOf(tempFile.toPath())));

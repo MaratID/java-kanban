@@ -13,7 +13,7 @@ public class CSVSaveManager {
                 12, 12,11,10));
         String taskLine = "";
         if (task.getClass() == s.getClass()) {
-            taskLine = String.format("%d,%d,%s,%s,%s,%d,%s,%s",
+            taskLine = String.format("%d,%s,%s,%s,%s,%d,%s,%s",
                     task.getTaskId(),
                     TaskTypes.TYPE_SUBTASK,
                     task.getName(),
@@ -24,17 +24,17 @@ public class CSVSaveManager {
                     task.getTaskStartTime().format(DateTimeFormatter.ofPattern("yyyy-MMMM-dd , HH:mm"))
             );
         } else if (task.getClass() == task1.getClass()) {
-            taskLine = String.format("%d,%d,%s,%s,%s,%s,%s",
+            taskLine = String.format("%d,%s,%s,%s,%s,%s,%s",
                     task.getTaskId(),
                     TaskTypes.TYPE_TASK,
                     task.getName(),
                     task.getStatus(),
                     task.getDetails(),
                     task.getTaskDuration().toMinutes(),
-                    task.getTaskStartTime().format(DateTimeFormatter.ofPattern("yyyy-MMMM-dd , HH:mm"))
+                    task.getTaskStartTime().format(DateTimeFormatter.ofPattern("yyyy-MM-dd:HH:mm"))
             );
         } else {
-            taskLine = String.format("%d,%d,%s,%s,%s,%s,%s",
+            taskLine = String.format("%d,%s,%s,%s,%s,%s,%s",
                     task.getTaskId(),
                     TaskTypes.TYPE_EPIC,
                     task.getName(),
@@ -48,8 +48,7 @@ public class CSVSaveManager {
     }
 
     public static String getheader() {
-        String header = "id,type,name,status,description,epic, duration, startTime";
-        return header;
+        return "id,type,name,status,description,epic, duration, startTime";
     }
 
     public static Task fromString(String value) {
@@ -64,15 +63,15 @@ public class CSVSaveManager {
         }
         if (newLine[1].equals("TYPE_TASK")) {
            return new Task(Integer.parseInt(newLine[0]), newLine[2], newLine[4], st,
-                   Duration.ofMinutes(Long.parseLong(newLine[6])), LocalDateTime.parse(newLine[7],
-                   DateTimeFormatter.ofPattern("yyyy-MMMM-dd , HH:mm")));
+                   Duration.ofMinutes(Long.parseLong(newLine[5])), LocalDateTime.parse(newLine[6],
+                   DateTimeFormatter.ofPattern("yyyy-MM-dd:HH:mm")));
         } else if (newLine[1].equals("TYPE_EPIC")) {
            return new Epictask(Integer.parseInt(newLine[0]), newLine[2], newLine[4], Duration.ofMinutes(Long.parseLong(newLine[6])), LocalDateTime.parse(newLine[7],
-                   DateTimeFormatter.ofPattern("yyyy-MMMM-dd , HH:mm")));
+                   DateTimeFormatter.ofPattern("yyyy-MM-dd:HH:mm")));
         } else {
             return new Subtask(Integer.parseInt(newLine[0]), newLine[2], newLine[4], st, Integer.parseInt(newLine[5]),
                     Duration.ofMinutes(Long.parseLong(newLine[6])), LocalDateTime.parse(newLine[7],
-                    DateTimeFormatter.ofPattern("yyyy-MMMM-dd , HH:mm")));
+                    DateTimeFormatter.ofPattern("yyyy-MM-dd:HH:mm")));
         }
     }
 
