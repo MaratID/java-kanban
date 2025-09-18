@@ -128,7 +128,7 @@ public class InMemoryTaskManager implements TaskManager {
                 .map(this::getSubtaskById)
                 .min(Comparator.comparing(Subtask::getTaskStartTime));
         earliestSubtask.ifPresent(subtask1 -> epic.setEpickStartTime(subtask1.getTaskStartTime()));
-        
+
         subtask.setTaskId(generateID());
         subtasks.put(subtask.getTaskId(), subtask);
         epic.addSubtaskIDs(subtask.getTaskId());

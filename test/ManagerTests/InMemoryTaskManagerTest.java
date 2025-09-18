@@ -39,7 +39,7 @@ class InMemoryTaskManagerTest {
         taskManager.createSubtask(subtask);
         int invalidEpicId = 3;
         Subtask subtask1 = new Subtask ("Подзадача 2", "Описание подзадачи 2",
-                Status.NEW, invalidEpicId, Duration.ofMinutes(1), 
+                Status.NEW, invalidEpicId, Duration.ofMinutes(1),
                 LocalDateTime.of(2025, 9, 1, 0,10,0));
         //When/Then создаем подзадачу и ожидаем исключение
         Assertions.assertThrows(IllegalArgumentException.class, () -> taskManager.createSubtask(subtask1));
@@ -64,7 +64,7 @@ class InMemoryTaskManagerTest {
                 LocalDateTime.of(2025, 9,15,0,0,0));
         taskManager.createEpicTask(epic);
         Subtask subtask = new Subtask("Test SubtaskInepic", "Test SubtaskInepic details", Status.NEW,
-                epic.getTaskId(), Duration.ofMinutes(1), 
+                epic.getTaskId(), Duration.ofMinutes(1),
                 LocalDateTime.of(2025,9,16,0,10,0));
         taskManager.createSubtask(subtask);
         Assertions.assertEquals(task, taskManager.getTaskById(task.getTaskId()), "Таски не равны");
@@ -106,7 +106,7 @@ class InMemoryTaskManagerTest {
         manager.createEpicTask(new Epictask("Epicname1", "Epicname1 details", Duration.ofMinutes(1),
                 LocalDateTime.of(2025, 9, 1, 0,0,0)));
         manager.createSubtask(new Subtask(2,"Subtask1Name", "Subtask1 Details", Status.NEW,
-            manager.getEpicTaskList().getFirst().getTaskId(), Duration.ofMinutes(1), 
+            manager.getEpicTaskList().getFirst().getTaskId(), Duration.ofMinutes(1),
                 LocalDateTime.of(2025, 9, 1, 0,10,0)));
         //заменяем статус Субтаска внутри эпика на IN_POGRESS
         Subtask subtask = manager.getSubtaskById(2);
