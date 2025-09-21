@@ -1,6 +1,7 @@
 package manager;
 import tasks.*;
 import java.util.ArrayList;
+import java.util.TreeSet;
 
 public interface TaskManager {
     //получить список Задач
@@ -47,5 +48,7 @@ public interface TaskManager {
     void deleteSubtaskById(int id);
 
     public ArrayList<Task> getHistory();
+
+    TreeSet<Task> getPrioritizedTasks(Task task);
     //тест
 }

@@ -81,5 +81,23 @@ class EpictaskTest {
         Assertions.assertEquals(newDone, Status.IN_POGRESS, "Статусы разные");
         Assertions.assertEquals(inProgress, Status.IN_POGRESS, "Статусы разные");
     }
+
+    @Test
+    void shouldGetLargestTimeDurationOfEpick() {
+        InMemoryTaskManager memoryManager = new InMemoryTaskManager();
+        Epictask epictask = new Epictask("Epic-test-Name", "Epic-test-Details",
+                Duration.ofDays(1),
+                LocalDateTime.of(2025,9,20,0,0,0));
+        memoryManager.createEpicTask(epictask);
+        int id = memoryManager.epicTasks.entrySet().iterator().next().getKey();
+        Subtask subtask1 = new Subtask("Subtask1-test-Name", "Subtask1-test-Details", Status.NEW, id,
+                Duration.ofHours(1), LocalDateTime.of(2025, 9,21,0,0,0));
+        Subtask subtask2 = new Subtask("Subtask2-test-Name", "Subtask2-test-Details", Status.NEW, id,
+                Duration.ofHours(2), LocalDateTime.of(2025, 9,21,6,0,0));
+        memoryManager.createSubtask(subtask1);
+        memoryManager.createSubtask(subtask2);
+        Assertions.assertEquals(Duration.ofHours(8), epictask.getTaskDuration(),
+                "Неверно рассчитана продолжительность");
+    }
     //тест
 }

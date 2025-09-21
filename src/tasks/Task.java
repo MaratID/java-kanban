@@ -103,6 +103,10 @@ public class Task {
         this.taskStartTime = taskStartTime;
     }
 
+    public void setTaskDuration(Duration taskDuration) {
+        this.taskDuration = taskDuration;
+    }
+
     @Override
     public int hashCode() {
         return Objects.hash(taskId);
