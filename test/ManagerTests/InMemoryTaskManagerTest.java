@@ -156,7 +156,6 @@ class InMemoryTaskManagerTest {
         testSet.add(s1e1);
         testSet.add(s2e2);
 
-
         TreeSet<Task> pT = taskManager.prioritizedTasks;
         Assertions.assertEquals(testSet,pT,"Списки не совпадают");
     }

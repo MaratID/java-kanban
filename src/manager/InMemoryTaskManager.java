@@ -111,7 +111,6 @@ public class InMemoryTaskManager implements TaskManager {
         //код для класса EpicTask
         epictask.setTaskId(generateID());
         epicTasks.put(epictask.getTaskId(), epictask);
-        add(epictask);
     }
 
     @Override
@@ -243,12 +242,7 @@ public class InMemoryTaskManager implements TaskManager {
     }
 
     private boolean overLap(Task task1, Task task2) {
-        if ((task1.getClass().equals(Epictask.class)) && (task2.getClass().equals(Subtask.class))) {
-            return false;
-        }
-        if ((task1.getClass().equals(Subtask.class)) && (task2.getClass().equals(Epictask.class))) {
-            return false;
-        }
+
         LocalDateTime start1 = task1.getTaskStartTime();
         LocalDateTime end1 = task1.getEndTime();
 
