@@ -1,4 +1,6 @@
 package tasks;
+import java.time.Duration;
+import java.time.LocalDateTime;
 import java.util.Objects;
 
 public class Task {
@@ -7,6 +9,40 @@ public class Task {
     private String details;
     private int taskId = 0;
     private Status status;
+    private Duration taskDuration;
+    private LocalDateTime taskStartTime;
+
+    public Task(String name, String details, Duration duration, LocalDateTime taskStartTime) {
+        this.name = name;
+        this.details = details;
+        this.taskDuration = duration;
+        this.taskStartTime = taskStartTime;
+    }
+
+    public Task(int id, String name, String details, Duration duration, LocalDateTime taskStartTime) {
+        this.name = name;
+        this.details = details;
+        this.taskId = id;
+        this.taskDuration = duration;
+        this.taskStartTime = taskStartTime;
+    }
+
+    public Task(int id, String name, String details, Status taskStatus, Duration duration, LocalDateTime taskStartTime) {
+        this.name = name;
+        this.details = details;
+        this.taskId = id;
+        this.status = taskStatus;
+        this.taskDuration = duration;
+        this.taskStartTime = taskStartTime;
+    }
+
+    public Task(String name, String details, Status taskStatus, Duration duration, LocalDateTime taskStartTime) {
+        this.name = name;
+        this.details = details;
+        this.status = taskStatus;
+        this.taskDuration = duration;
+        this.taskStartTime = taskStartTime;
+    }
 
     public Task(String name, String details) {
         this.name = name;
@@ -17,19 +53,6 @@ public class Task {
         this.name = name;
         this.details = details;
         this.taskId = id;
-    }
-
-    public Task(int id, String name, String details, Status taskStatus) {
-        this.name = name;
-        this.details = details;
-        this.taskId = id;
-        this.status = taskStatus;
-    }
-
-    public Task(String name, String details, Status taskStatus) {
-        this.name = name;
-        this.details = details;
-        this.status = taskStatus;
     }
 
     public int getTaskId() {
@@ -62,6 +85,26 @@ public class Task {
 
     public void setDetails(String details) {
         this.details = details;
+    }
+
+    public Duration getTaskDuration() {
+        return taskDuration;
+    }
+
+    public LocalDateTime getTaskStartTime() {
+        return taskStartTime;
+    }
+
+    public LocalDateTime getEndTime() {
+        return taskStartTime.plusMinutes(taskDuration.toMinutes());
+    }
+
+    public void setTaskStartTime(LocalDateTime taskStartTime) {
+        this.taskStartTime = taskStartTime;
+    }
+
+    public void setTaskDuration(Duration taskDuration) {
+        this.taskDuration = taskDuration;
     }
 
     @Override

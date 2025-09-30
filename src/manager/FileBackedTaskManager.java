@@ -31,6 +31,9 @@ public class FileBackedTaskManager extends InMemoryTaskManager {
                     break;
                 }
                 String[] subLines = line.split(",");
+                for (String s : subLines) {
+                    s.trim();
+                }
                 final Task task = CSVSaveManager.fromString(line);
                 final int id = task.getTaskId();
                 if (id > generatorID) {

@@ -1,8 +1,8 @@
 package manager;
 import tasks.*;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.Iterator;
+
+import java.time.LocalDateTime;
+import java.util.*;
 
 public class InMemoryTaskManager implements TaskManager {
     //список Задач
@@ -11,6 +11,7 @@ public class InMemoryTaskManager implements TaskManager {
     public final HashMap<Integer, Epictask> epicTasks = new HashMap<>();
     //список подзадач
     public final HashMap<Integer, Subtask> subtasks = new HashMap<>();
+    public final TreeSet<Task> prioritizedTasks = new TreeSet<>(Comparator.comparing(Task::getTaskStartTime));
     public final HistoryManager historyManager = Managers.getDefaultHistory();
     public int generatorId = 0;
 
@@ -43,33 +44,32 @@ public class InMemoryTaskManager implements TaskManager {
             list.add(subtasks.get(key));
         }
         return list;
+        /*return (ArrayList<Subtask>) subtasks.values().stream()
+                .collect(Collectors.toList());*/
     }
 
     @Override
     public void clearTasks() {
-        for (Integer id : tasks.keySet()) {
-            historyManager.remove(id);
-        }
+        tasks.keySet().stream()
+                .forEach(historyManager::remove);
         tasks.clear();
     }
 
     @Override
     public void clearEpics() {
-        for (Integer id : epicTasks.keySet()) {
-            for (Integer sid : epicTasks.get(id).getSubtasksIds()) {
-                historyManager.remove(sid);
-            }
-            historyManager.remove(id);
-        }
+        epicTasks.entrySet().stream()
+                .forEach(entry -> {
+                    entry.getValue().getSubtasksIds().forEach(historyManager::remove);
+                    historyManager.remove(entry.getKey());
+                });
         epicTasks.clear();
         subtasks.clear();
     }
 
     @Override
     public void clearSubtasks() {
-        for (Integer id : subtasks.keySet()) {
-            historyManager.remove(id);
-        }
+        subtasks.keySet().stream()
+                .forEach(historyManager::remove);
         for (Integer id : subtasks.keySet()) {
             Subtask subtask = subtasks.get(id);
             int epicID = subtask.getEpicId();
@@ -103,6 +103,7 @@ public class InMemoryTaskManager implements TaskManager {
         int a = generateID();
         task.setTaskId(a);
         tasks.put(task.getTaskId(), task);
+        add(task);
     }
 
     @Override
@@ -126,7 +127,9 @@ public class InMemoryTaskManager implements TaskManager {
         subtask.setTaskId(generateID());
         subtasks.put(subtask.getTaskId(), subtask);
         epic.addSubtaskIDs(subtask.getTaskId());
+        epic.setEpickTimeParameters(subtask, subtasks);//новый метод
         updateEpicStatus(epicId);
+        add(subtask);
     }
 
     @Override
@@ -153,6 +156,7 @@ public class InMemoryTaskManager implements TaskManager {
         }
         final Epictask epic = epicTasks.get(subtask.getEpicId());
         subtasks.replace(subtask.getTaskId(), subtask);
+        epic.setEpickTimeParameters(subtask, subtasks);
         updateEpicStatus(subtask.getEpicId());
     }
 
@@ -188,6 +192,7 @@ public class InMemoryTaskManager implements TaskManager {
         }
         Epictask epictask = epicTasks.get(subtask.getTaskId());
         epictask.removeSubtask(id);
+        epictask.setEpickTimeParameters(subtask, subtasks);
         updateEpicStatus(epictask.getTaskId());
     }
 
@@ -234,6 +239,41 @@ public class InMemoryTaskManager implements TaskManager {
 
     private int generateID() {
         return ++generatorId;
+    }
+
+    private boolean overLap(Task task1, Task task2) {
+
+        LocalDateTime start1 = task1.getTaskStartTime();
+        LocalDateTime end1 = task1.getEndTime();
+
+        LocalDateTime start2 = task2.getTaskStartTime();
+        LocalDateTime end2 = task2.getEndTime();
+
+        boolean overLap = start2.isAfter(end1) || start1.isAfter(end2);
+        return !overLap;
+    }
+
+    private void add(Task task) {
+        //нужно что-то прописать когда prioritizedtasks пустой!!!
+        if (!prioritizedTasks.isEmpty()) {
+            Optional<Task> overLapping = prioritizedTasks.stream()
+                    .filter(existTask -> overLap(task, existTask))
+                    .findFirst();
+            try {
+                if (overLapping.isPresent()) {
+                    String message = "Задачи пересекаются";
+                    throw new TaskValidationExeption(message);
+                }
+            } catch (TaskValidationExeption e) {
+                throw new RuntimeException(e);
+            }
+        }
+        prioritizedTasks.add(task);
+    }
+
+    @Override
+    public TreeSet<Task> getPrioritizedTasks(Task task) {
+        return prioritizedTasks;
     }
     //тест
 }
