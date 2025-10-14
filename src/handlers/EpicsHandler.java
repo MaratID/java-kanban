@@ -45,10 +45,10 @@ public class EpicsHandler extends BaseHttpHandler {
             try  {
                 String list = taskManager.getEpicTaskList().toString();
                 sendText(exchange, list, 200);
-            } catch (NullPointerException e){
+            } catch (NullPointerException e) {
                 sendText(exchange, "Список задач пуст", 400);
             }
-        } else if (path.length == 2 && isNumeric(path[1])){
+        } else if (path.length == 2 && isNumeric(path[1])) {
             try {
                 //вернуть задачу по id
                 String epic = taskManager.getEpictaskById(Integer.parseInt(path[1])).toString();
