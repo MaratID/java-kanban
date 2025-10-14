@@ -1,6 +1,3 @@
-id,type,name,status,description,epic
-1,TYPE_TASK,Переехать на новую квартиру,NEW,Детали главной задачи
-2,TYPE_TASK,Выпить бокал вина после переезда,NEW,Детали винной задачи
-3,TYPE_EPIC,Погрузить вещи в машину,null,Детали эпика по загрузке машины
-4,TYPE_EPIC,Убраться в старой квартире,null,Детали эпика по уборке старой квартиры
+id,type,name,status,description,epic, duration, startTime
+1,TYPE_TASK,Test 2,NEW,Testing task 2,5,2025-10-13:22:40
 

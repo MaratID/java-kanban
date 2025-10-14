@@ -1,6 +1,5 @@
 package manager;
 import tasks.*;
-
 import java.time.LocalDateTime;
 import java.util.*;
 
@@ -127,7 +126,7 @@ public class InMemoryTaskManager implements TaskManager {
         subtask.setTaskId(generateID());
         subtasks.put(subtask.getTaskId(), subtask);
         epic.addSubtaskIDs(subtask.getTaskId());
-        epic.setEpickTimeParameters(subtask, subtasks);//новый метод
+        epic.setEpickTimeParameters(subtask, subtasks);
         updateEpicStatus(epicId);
         add(subtask);
     }
@@ -254,7 +253,6 @@ public class InMemoryTaskManager implements TaskManager {
     }
 
     private void add(Task task) {
-        //нужно что-то прописать когда prioritizedtasks пустой!!!
         if (!prioritizedTasks.isEmpty()) {
             Optional<Task> overLapping = prioritizedTasks.stream()
                     .filter(existTask -> overLap(task, existTask))
@@ -272,7 +270,7 @@ public class InMemoryTaskManager implements TaskManager {
     }
 
     @Override
-    public TreeSet<Task> getPrioritizedTasks(Task task) {
+    public TreeSet<Task> getPrioritizedTasks() {
         return prioritizedTasks;
     }
     //тест
