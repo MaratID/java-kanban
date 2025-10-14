@@ -44,10 +44,10 @@ public class SubtasksHandler extends BaseHttpHandler {
             try  {
                 String list = taskManager.getSubTaskList().toString();
                 sendText(exchange, list, 200);
-            } catch (NullPointerException e){
+            } catch (NullPointerException e) {
                 sendText(exchange, "Список подзадач пуст", 400);
             }
-        } else if (isNumeric(path[1])){
+        } else if (isNumeric(path[1])) {
             try {
                 //вернуть задачу по id
                 String subtask = taskManager.getSubtaskById(Integer.parseInt(path[1])).toString();
@@ -78,9 +78,7 @@ public class SubtasksHandler extends BaseHttpHandler {
             System.out.println(e.getMessage());
         } catch (RuntimeException e) {
             sendHasOverlaps(exchange);
-        }  {
-
-        }
+        }  
     }
 
     private void deleteSubtask(HttpExchange exchange) throws IOException {
