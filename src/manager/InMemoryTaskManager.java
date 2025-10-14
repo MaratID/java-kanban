@@ -43,8 +43,6 @@ public class InMemoryTaskManager implements TaskManager {
             list.add(subtasks.get(key));
         }
         return list;
-        /*return (ArrayList<Subtask>) subtasks.values().stream()
-                .collect(Collectors.toList());*/
     }
 
     @Override
