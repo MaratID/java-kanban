@@ -2,11 +2,9 @@
   <library name="lib">
     <CLASSES>
       <root url="file://$PROJECT_DIR$/../m1-t23-junit/lib" />
-      <root url="file://$PROJECT_DIR$/../m1-t25-api/m1-t25-api/lib" />
     </CLASSES>
     <JAVADOC />
     <SOURCES />
     <jarDirectory url="file://$PROJECT_DIR$/../m1-t23-junit/lib" recursive="false" />
-    <jarDirectory url="file://$PROJECT_DIR$/../m1-t25-api/m1-t25-api/lib" recursive="false" />
   </library>
 </component>
