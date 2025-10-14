@@ -78,7 +78,7 @@ public class SubtasksHandler extends BaseHttpHandler {
             System.out.println(e.getMessage());
         } catch (RuntimeException e) {
             sendHasOverlaps(exchange);
-        }  
+        }
     }
 
     private void deleteSubtask(HttpExchange exchange) throws IOException {
