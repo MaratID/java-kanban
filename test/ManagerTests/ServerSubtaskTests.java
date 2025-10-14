@@ -28,8 +28,7 @@ public class ServerSubtaskTests {
     TaskManager manager = new InMemoryTaskManager();
     HttpTaskServer taskServer = new HttpTaskServer(manager);
     Gson gson = HttpTaskServer.getGson();
-
-
+    
     public ServerSubtaskTests() throws IOException {
     }
 

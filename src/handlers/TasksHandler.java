@@ -44,10 +44,10 @@ public class TasksHandler extends BaseHttpHandler {
             try  {
                 String list = taskManager.getTaskList().toString();
                 sendText(exchange, list, 200);
-            } catch (NullPointerException e){
+            } catch (NullPointerException e) {
                 sendText(exchange, "Список задач пуст", 400);
             }
-        } else if (isNumeric(path[1])){
+        } else if (isNumeric(path[1])) {
             try {
                 //вернуть задачу по id
                 String task = taskManager.getTaskById(Integer.parseInt(path[1])).toString();
