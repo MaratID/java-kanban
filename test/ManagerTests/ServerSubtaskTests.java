@@ -28,11 +28,11 @@ public class ServerSubtaskTests {
     TaskManager manager = new InMemoryTaskManager();
     HttpTaskServer taskServer = new HttpTaskServer(manager);
     Gson gson = HttpTaskServer.getGson();
-    
-    
+
+
     public ServerSubtaskTests() throws IOException {
     }
-    
+
     @BeforeEach
     void startServer(){
         manager.clearTasks();
@@ -40,7 +40,7 @@ public class ServerSubtaskTests {
         manager.clearEpics();
         taskServer.start();
     }
-    
+
     @AfterEach
     void stopServer(){
         taskServer.stop();
@@ -55,13 +55,13 @@ public class ServerSubtaskTests {
         URI priorUrl = URI.create("http://localhost:8080/prioritized");
         HttpRequest request = HttpRequest.newBuilder().uri(url).POST(HttpRequest.BodyPublishers.ofString(taskJson)).build();
         HttpResponse<String> response = client.send(request, HttpResponse.BodyHandlers.ofString());
-        
+
         HttpRequest priorRequest = HttpRequest.newBuilder().uri(priorUrl).GET().build();
         HttpResponse<String> priorResponse = client.send(priorRequest, HttpResponse.BodyHandlers.ofString());
 
         assertEquals(200, priorResponse.statusCode());
     }
-    
+
     @Test
     public void shouldReturnHistory() throws IOException, InterruptedException {
         Task task = new Task("Task1", "Det1", Duration.ofMinutes(1), LocalDateTime.now());
@@ -75,17 +75,17 @@ public class ServerSubtaskTests {
         //Получение задачи
         HttpRequest request2 = HttpRequest.newBuilder().uri(urlID).GET().build();
         HttpResponse<String> getResponse = client.send(request2, HttpResponse.BodyHandlers.ofString());
-        
+
         HttpRequest historyRequest = HttpRequest.newBuilder().uri(historyUrl).GET().build();
         HttpResponse<String> historyResponse = client.send(historyRequest, HttpResponse.BodyHandlers.ofString());
-        
+
         assertEquals(200, historyResponse.statusCode());
         ArrayList<Task> historyList = manager.getHistory();
         assertEquals("Task1", historyList.get(0).getName());
-        
+
     }
-    
-    
+
+
     @Test
     public void shouldcreateEpicAndSubtask() throws IOException, InterruptedException {
         // создаём задачу
@@ -102,7 +102,7 @@ public class ServerSubtaskTests {
         URI urlEpic = URI.create("http://localhost:8080/epics");
         HttpRequest requestE = HttpRequest.newBuilder().uri(urlEpic).POST(HttpRequest.BodyPublishers.ofString(epicTaskJson)).build();
         HttpRequest requestS = HttpRequest.newBuilder().uri(urlSub).POST(HttpRequest.BodyPublishers.ofString(subtaskJson)).build();
-        
+
         //нужно поразбираться почему я не могу привязаться к эпику!!!!!!!!!
         // вызываем рест, отвечающий за создание задач
         HttpResponse<String> responseE = client.send(requestE, HttpResponse.BodyHandlers.ofString());
@@ -111,7 +111,7 @@ public class ServerSubtaskTests {
         // проверяем код ответа
         assertEquals(201, responseS.statusCode());
         assertEquals(201, responseE.statusCode());
-        
+
         // проверяем, что создалась одна задача с корректным именем
         List<Subtask> subTasksFromManager = manager.getSubTaskList();
 
@@ -140,8 +140,8 @@ public class ServerSubtaskTests {
         //Получение задачи по id
         HttpRequest request3 = HttpRequest.newBuilder().uri(urlForId).GET().build();
         HttpResponse<String> getIdResponse = client.send(request3, HttpResponse.BodyHandlers.ofString());
-        
-        
+
+
         assertEquals(200, getResponse.statusCode());
         assertEquals(200, getIdResponse.statusCode());
     }
@@ -160,7 +160,7 @@ public class ServerSubtaskTests {
         HttpRequest request = HttpRequest.newBuilder().uri(url).POST(HttpRequest.BodyPublishers.ofString(taskJson)).build();
         HttpResponse<String> response = client.send(request, HttpResponse.BodyHandlers.ofString());
         List<Task> tasksFromManager = manager.getTaskList();
-        
+
         HttpRequest requestDel = HttpRequest.newBuilder().uri(urlD).DELETE().build();
         HttpResponse<String> getDelResponse = client.send(requestDel, HttpResponse.BodyHandlers.ofString());
 

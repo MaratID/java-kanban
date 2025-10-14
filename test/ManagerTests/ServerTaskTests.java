@@ -24,10 +24,10 @@ public class ServerTaskTests {
     TaskManager manager = new InMemoryTaskManager();
     HttpTaskServer taskServer = new HttpTaskServer(manager);
     Gson gson = HttpTaskServer.getGson();
-    
+
     public ServerTaskTests() throws IOException {
     }
-    
+
     @BeforeEach
     void startServer(){
         manager.clearTasks();
@@ -35,12 +35,12 @@ public class ServerTaskTests {
         manager.clearEpics();
         taskServer.start();
     }
-    
+
     @AfterEach
     void stopServer(){
         taskServer.stop();
     }
-    
+
     @Test
     public void shouldcreateTask() throws IOException, InterruptedException {
         // создаём задачу
@@ -87,8 +87,8 @@ public class ServerTaskTests {
         //Получение задачи по id
         HttpRequest request3 = HttpRequest.newBuilder().uri(urlForId).GET().build();
         HttpResponse<String> getIdResponse = client.send(request3, HttpResponse.BodyHandlers.ofString());
-        
-        
+
+
         assertEquals(200, getResponse.statusCode());
         assertEquals(200, getIdResponse.statusCode());
     }
@@ -107,7 +107,7 @@ public class ServerTaskTests {
         HttpRequest request = HttpRequest.newBuilder().uri(url).POST(HttpRequest.BodyPublishers.ofString(taskJson)).build();
         HttpResponse<String> response = client.send(request, HttpResponse.BodyHandlers.ofString());
         List<Task> tasksFromManager = manager.getTaskList();
-        
+
         HttpRequest requestDel = HttpRequest.newBuilder().uri(urlD).DELETE().build();
         HttpResponse<String> getDelResponse = client.send(requestDel, HttpResponse.BodyHandlers.ofString());
 

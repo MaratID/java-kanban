@@ -79,7 +79,7 @@ public class SubtasksHandler extends BaseHttpHandler {
         } catch (RuntimeException e) {
             sendHasOverlaps(exchange);
         }  {
-            
+
         }
     }
 

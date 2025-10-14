@@ -114,7 +114,7 @@ public class EpicsHandler extends BaseHttpHandler {
                 .collect(Collectors.joining());
         return body.describeConstable();
     }
-    
+
     private static boolean isNumeric(String str) {
         try {
             Integer.parseInt(str);

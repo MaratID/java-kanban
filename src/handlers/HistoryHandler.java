@@ -13,9 +13,9 @@ public class HistoryHandler extends BaseHttpHandler {
 
     @Override
     public void handle(HttpExchange exchange) throws IOException {
-        
+
         if ("GET".equals(exchange.getRequestMethod())) {
-            
+
             String task = historyManager.getHistory().toString();
             sendText(exchange, task, 200);
         } else {

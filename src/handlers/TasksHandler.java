@@ -12,7 +12,7 @@ import java.util.stream.Collectors;
 public class TasksHandler extends BaseHttpHandler {
     private final TaskManager taskManager;
     private final Gson gson = HttpTaskServer.getGson();
-    
+
     public TasksHandler(TaskManager taskManager) {
         super();
         this.taskManager = taskManager;
@@ -36,7 +36,7 @@ public class TasksHandler extends BaseHttpHandler {
                 sendNotFound(exchange);
         }
     }
-    
+
     private void getTasks(HttpExchange exchange)throws IOException {
         String[] path = exchange.getRequestURI().getPath().substring(1).split("/");
         if (path.length == 1 && path[0].equals("tasks")) {
@@ -57,7 +57,7 @@ public class TasksHandler extends BaseHttpHandler {
             }
         }
     }
-    
+
     private void handlePost(HttpExchange exchange) throws IOException {
         Optional<String> body =  parseBody(exchange.getRequestBody());
         //проверка на пустоту тела запроса
@@ -78,7 +78,7 @@ public class TasksHandler extends BaseHttpHandler {
             sendHasOverlaps(exchange);
         }
     }
-    
+
     private void deleteTask(HttpExchange exchange) throws IOException {
         String[] path = exchange.getRequestURI().getPath().substring(1).split("/");
         Optional<String> body =  parseBody(exchange.getRequestBody());
@@ -94,7 +94,7 @@ public class TasksHandler extends BaseHttpHandler {
             sendText(exchange, "Такая задача отсутствует в списке", 404);
         }
     }
-    
+
     private Optional<String> parseBody(InputStream bodyInputStream) {
         String body = new BufferedReader(
                 new InputStreamReader(bodyInputStream, StandardCharsets.UTF_8))
@@ -111,7 +111,7 @@ public class TasksHandler extends BaseHttpHandler {
             return false;
         }
     }
-    
+
     /*private Task getTaskFromBody(String jsonString){
         JsonObject json = JsonParser.parseString(jsonString).getAsJsonObject();
         int id = json.get("id").getAsInt();
